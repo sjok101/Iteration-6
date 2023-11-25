@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 ////////////////////////////////////////////////
 
 app.get('/ProducerPage', async function(req,res){
-    res.render('');
+    res.render('pages/group3_bok');
 })
 
 
