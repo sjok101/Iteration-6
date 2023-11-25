@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Producers Page</title>
-    <link rel="stylesheet" type="text/css" href="../../../Producer/EJS/public/css/group3_bok.css">
+    <link rel="stylesheet" type="text/css" href="/css/group3_bok.css">
     <style>
         body {
             background: #1c1d24;
@@ -15,6 +15,103 @@
 </head>
 
 <body>
+    <nav>
+        <table class="navigation-bar">
+            <tr>
+                <td>
+                    <div class=a-group>
+                        <a href="./group3_bok.html" onclick="alert('Listeners')" onmouseover="highlightBackground(this)"
+                            onmouseout="resetBackground(this)">Listeners</a>
+                        <a href="./group3_bok.html" onclick="alert('DJs')" onmouseover="highlightBackground(this)"
+                            onmouseout="resetBackground(this)">DJs</a>
+                        <a href="./group3_bok.html" onclick="alert('Producer')" onmouseover="highlightBackground(this)"
+                            onmouseout="resetBackground(this)">Producers</a>
+                    </div>
+                    <h2 class="title">Producer's Page</h2>
+                </td>
+            </tr>
+        </table>
+        <script>
+
+            function highlightBackground(element) {
+                element.style.backgroundColor = "darkblue";
+            }
+
+            function resetBackground(element) {
+                element.style.backgroundColor = "";
+            }
+
+
+        </script>
+    </nav>
+    <div class="form-container">
+        <form>
+            <table class="page-content">
+                <tr>
+                    <td>
+                        <div class=Container-DJs>
+
+                            <input type="date" id="DJ-Calendar" name="date">
+                            <table class="dj-list">
+                                <tr>
+                                    <th>DJ</th>
+                                    <th>Playlist</th>
+                                    <th>Time slot</th>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td>
+                        <div class=Container-Playlists>
+                            <div class = dj-container>
+                                <table class="dj-playlist">
+
+                                    <thead>
+                                        <tr>
+                                         <th>Song Title</th>
+                                         <th>Time</th>
+                                        </tr>
+                                     </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <br>
+                        <aside>
+                            <button class="button" type="button" id="del-from-play">Del</button>
+                        </aside>
+                        <div class=Container-Search>
+                            <aside>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <input class="search-bar" type="text" id="search-bar">
+                                        </td>
+                                        <td>
+                                            <audio controls class="audio-box" style="height: 3vh; margin-inline: 18%;">
+                                                <source class="play-searched-song">
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </aside>
+                            <div class="search-container">
+                                <table class="music-search">
+                                    <thead>
+                                        <tr>
+                                            <th>Results</th>
+                                            <th>Artist</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <br>
+                            <aside>
+                                <button class="button" type="button" id="add-to-play">Add</button>
+                            </aside>
+                        </div>
+                    </td>
+                </tr>
+            </table>
             <br>
 
             <hr class=footer-line>
@@ -151,7 +248,7 @@
             </footer>
         </form>
     </div>
-    <script src="../../../Producer/EJS/public/js/group3_bok.js" type="text/javascript">
+    <script src="/js/group3_bok.js" type="text/javascript">
         document.addEventListener("DOMContentLoaded", (event) => {
             console.log("DOM LOADED")
         })

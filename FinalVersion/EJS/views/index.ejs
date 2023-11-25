@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Producers Page</title>
+    <link rel="stylesheet" type="text/css" href="/css/group3_bok.css">
+    <style>
+        body {
+            background: #1c1d24;
+            font-family: 'Trebuchet MS';
+            color: #6699cc;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <table class="navigation-bar">
+            <tr>
+                <td>
+                    <div class=a-group>
+                        <a href="../Listener/calvin.txt" onclick="alert('Listeners')"
+                            onmouseover="highlightBackground(this)" onmouseout="resetBackground(this)">Listeners</a>
+                        <a href="./group3_bok.html" onclick="alert('DJs')" onmouseover="highlightBackground(this)"
+                            onmouseout="resetBackground(this)">DJs</a>
+                        <a href="./group3_bok.html" onclick="alert('Producer')" onmouseover="highlightBackground(this)"
+                            onmouseout="resetBackground(this)">Producers</a>
+                    </div>
+                    <h2 class="title">Sadboi-101 FM</h2>
+                </td>
+            </tr>
+        </table>
+        <script>
+
+            function highlightBackground(element) {
+                element.style.backgroundColor = "darkblue";
+            }
+
+            function resetBackground(element) {
+                element.style.backgroundColor = "";
+            }
+
+
+        </script>
+    </nav>
+    <div class="form-container">
+        <form>
+
+            <div class="homepage-fill" style="width: 1500px; border: 4px solid #6699cc; height: 600px; margin: auto;">
+
+            </div>
+            <br>
+
+            <hr class=footer-line>
+            <footer>
+                <table class="footer-table" style="text-align: inherit; margin: auto;">
+                    <tr>
+                        <td>
+                            <figure class="footer-logo" style="padding-top: 10px;">
+                                <img src="./asset/logo1.png" width="280px">
+                                <figcaption style="margin-left: 60px; text-align: left;">Listen to Sadboi-101 FM!<br>
+                                    Free music, radio and <br>
+                                    podcasts about your <br>
+                                    favorite artist in RnB <br>
+                                    and lo-fi. </figcaption>
+                            </figure>
+                        </td>
+                        <td>
+                            <table class="footer-extras">
+                                <thead>
+                                    <% data.fHeader.forEach(result=>{ %>
+                                        <th>
+                                            <%= result %>
+                                        </th>
+                                        <% }) %>
+                                </thead>
+                                <tr>
+                                    <td>
+                                        <%= data.fExplore[0] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fExclusive[0] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fInfo[0] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fServ[0] %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <%= data.fExplore[1] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fExclusive[1] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fInfo[1] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fServ[1] %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <%= data.fExplore[2] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fExclusive[2] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fInfo[2] %>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <%= data.fExclusive[3] %>
+                                    </td>
+                                    <td>
+                                        <%= data.fInfo[3] %>
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table style="margin: auto;">
+                                <tr>
+                                    <td style="font-size: large; text-align: center; margin: auto;">CONNECT</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <br>
+                                        <table class="footer-connect">
+                                            <tr>
+
+                                                <td><a href="https://www.facebook.com/"><img class="connect-logo"
+                                                            src="./asset/e_small_logo1.png"></a></td>
+                                                <td><a href="https://www.twitter.com/"><img class="connect-logo"
+                                                            src="./asset/e_small_logo2.png"></a></td>
+                                                <td><a href="https://www.instagram.com/"><img class="connect-logo"
+                                                            src="./asset/e_small_logo3.png"></a></td>
+                                                <td><a href="https://www.youtube.com/"><img class="connect-logo"
+                                                            src="./asset/e_small_logo4.png"></a></td>
+
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; margin: auto;">© 2023 sadboi 101-FM</td>
+                        <td>
+                            <table class="footer-support-link">
+                                <tr>
+                                    <td>
+                                        <%= data.fExtra[0] %>
+                                    </td>
+                                    <td>|</td>
+                                    <td>
+                                        <%= data.fExtra[1] %>
+                                    </td>
+                                    <td>|</td>
+                                    <td>
+                                        <%= data.fExtra[2] %>
+                                    </td>
+                                    <td>|</td>
+                                    <td>
+                                        <%= data.fExtra[3] %>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </footer>
+        </form>
+    </div>
+    <script src="../../../Producer/EJS/public/js/group3_bok.js" type="text/javascript">
+        document.addEventListener("DOMContentLoaded", (event) => {
+            console.log("DOM LOADED")
+        })
+
+    </script>
+
+
+</body>
+
+</html>
