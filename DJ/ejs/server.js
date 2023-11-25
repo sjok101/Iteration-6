@@ -9,7 +9,7 @@ const db = mongoose.connection;
 db.once('open', () => {
   console.log('connected to mongo');
 });
-
+/*
 const daySchema = new mongoose.Schema({
   Date: String,
   Week: Number,
@@ -26,18 +26,40 @@ const daySchema = new mongoose.Schema({
     }
   ]
 });
+*/
+const djSchema = new mongoose.Schema({
+  Djname: String,
+  Date: String,
+  Week: Number,
+  DayNum: Number, 
+  Time: String,
+  playlistName: String,
+  Playlists:[
+    {
+      title: String,
+      artist: String,
+      duration: String,
+      genre: String,
+      flag: String
+    }
+  ] 
+});
+
 const prevSchema = new mongoose.Schema({
   Name: String,
   description: String,
   Songs: [
     {
-      song: String,
-      description: String,
+      title: String,
+      artist: String,
+      duration: String,
+      genre: String,
+      flag: String
     }
   ]
           
 });
-const day = mongoose.model('day', daySchema);
+const day = mongoose.model('day', djSchema);
 /*
 const day1 = new day({
   Date: "October 1st 2023",
