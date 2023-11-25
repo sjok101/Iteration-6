@@ -4,10 +4,9 @@ const Song = require('./models/song');
 const DJ = require('./models/dj');
 const prevPlay = require('./models/prevPlaylist');
 const AAA = require('./models/aaa');
-
+var bodyParser = require('body-parser');
 var app = express();
 var path = require('path');
-
 
 
 //init view engine
@@ -15,6 +14,8 @@ app.set('view engine', 'ejs');
 
 //set dir path
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 ////////////////////////////////////////////////
 //               Add routes here              //

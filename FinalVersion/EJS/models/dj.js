@@ -54,6 +54,5 @@ const djSchema = new mongoose.Schema({
     Playlists:[songSchema] 
   });
 
-const schedule = mongoose.model('schedule', scheduleSchema);
 const DJ = mongoose.model('djs', djSchema);
 module.exports = DJ;
