@@ -4,6 +4,89 @@
         <link rel="stylesheet" href="css/DJStyle.css">
         <title>DJTimeSlot</title>
         <style>
+            * {
+                margin: 0;
+                color: #6699CC;
+                background-color: #202122;
+                flex-wrap: nowrap;
+            }
+            ::-webkit-scrollbar {
+                -webkit-appearance: none;
+                width: 15px;
+            }
+            ::-webkit-scrollbar-thumb {
+                background:#6699CC;
+            }
+
+            ::-webkit-scrollbar-track {
+                background-color:#202122;
+            }
+            .navbar {
+                padding: 20px;
+                display: flex;
+                align-items: center;
+                max-width: 2400px;
+                max-height: 10%;
+                min-width: 500px;
+                margin: 0 auto;
+                border-bottom: 5px solid #a9a9a9;
+                border-left: 5px solid #a9a9a9;
+                border-top: 5px solid #a9a9a9 ;
+                border-right: 5px solid #a9a9a9;
+                background-color: #202122;
+                margin-top: 1%;
+                margin-bottom: 1%;
+                position: relative;
+            }
+            .navbar h1 {
+                color: #6699CC;
+                background-color: #202122;
+                margin-bottom: 10px;
+                margin-left: 600px;
+                font-size: 50px;
+                text-align: center;
+            }
+            .navbar .Producer {
+                padding: 10px; border: solid; background-color: #202122;
+                margin-right: 40px;
+                margin-left: 40px;
+            }
+
+            .navbar .Listener {
+                padding: 10px; border: solid; background-color: #202122;
+                margin-right: 40px;
+                margin-left: 40px;
+            }
+
+            .navbar .Dj {
+                padding: 10px; 
+                border: solid; 
+                background-color: #202122;
+                margin-right: 40px;
+                margin-left: 40px;
+                flex-wrap: nowrap;
+            }
+
+            .border {
+                padding: 20px;
+                display: flex;
+                align-items: top;
+                max-width: 2400px;
+                width: 2400px;
+                max-height: 2000px;
+                height: 1000px;
+                margin: 0 auto;
+                border-bottom: 10px solid #a9a9a9;
+                border-left: 10px solid #a9a9a9;
+                border-top: 10px solid #a9a9a9 ;
+                border-right: 10px solid #a9a9a9;
+                background-color: #202122;
+                position: relative;
+            }
+            .border .content{
+                background-color: #202122;
+                width: 2400px;   
+            }
             .navbar .DjBack {
                 padding: 10px; border: solid; background-color: #202122;
                 margin-right: 40px;
@@ -208,7 +291,21 @@
                 background-color: #a9a9a9;
             }
         </style>
-        <%- include('../partials/NavbarDjTime'); %>
+        <nav class = "navbar">
+            <div class = "Producer">
+                <a href="/Producer" >Producer</a> 
+            </div>
+            <div class = "Listener">
+                <a href="/Listener" >Listener</a>
+            </div>
+            <div class = "Dj">
+                <a href="/DJHomepage">DJ</a>
+            </div>
+            <h1> DJ Timeslot </h1>
+            <div class = "DjBack">
+                <a href="/DJHomepage">Back To DJ Menu</a>
+            </div>
+        </nav>
     </head>
     <body>
         <div class="border"> 
