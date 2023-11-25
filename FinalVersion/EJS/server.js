@@ -1,6 +1,8 @@
 var express = require('express');
 const mongoose = require('mongoose');
-
+const Song = require('./models/song');
+const DJ = require('./models/dj');
+const prevPlay = require('./models/dj');
 var app = express();
 var path = require('path');
 
@@ -38,40 +40,6 @@ app.get('/', function (req, res) {
 
 //------------------------------------------------------------------------------------- DJ
 
-const scheduleSchema = new mongoose.Schema({
-    Djname: String,
-    Date: String,
-    Week: Number,
-    DayNum: Number, 
-    Time: String,
-    playlistName: String,
-    Playlists:[
-      {
-        title: String,
-        artist: String,
-        duration: String,
-        genre: String,
-        flag: String
-      }
-    ] 
-  });
-
-const schedule = mongoose.model('schedule', scheduleSchema);
-const prevSchema = new mongoose.Schema({
-    Name: String,
-    description: String,
-    Songs: [
-      {
-        title: String,
-        artist: String,
-        duration: String,
-        genre: String,
-        flag: String
-      }
-    ]
-            
-  });
-const prevPlay = mongoose.model('prevPlay',prevSchema);
 
 
 app.use(express.json());
@@ -88,7 +56,7 @@ let currentTimeslot = {
 }
 //home tab
 app.get('/DJHomepage', async function(req, res) {
-  const startWeek = await day.find({Week: weekNumber});
+  const startWeek = await DJ.find({Week: weekNumber});
   startWeek.sort(compareWeek);
   //console.log(startWeek);
   res.render('pages/DJHomepage',{ThisWeek: startWeek});
@@ -107,7 +75,7 @@ app.post('/DJHomepage', async function(req, res) {
       console.log(weekNumber + " to high or low to move weeks currently");
     }
     console.log(weekNumber);
-    let nweek = await day.find({Week: weekNumber});
+    let nweek = await DJ.find({Week: weekNumber});
     nweek.sort(compareWeek);
     res.send({ThisWeek: nweek});
   }
@@ -125,7 +93,7 @@ app.post('/DJHomepage', async function(req, res) {
 app.get('/DJTimeSlot', async function(req, res) {
   //console.log("1: "+currentTimeslot.Date);
  // console.log("2: "+ Object.values(currentTimeslot) + " ok");
-  let timeslotDay = await day.find({Date: currentTimeslot.Date});
+  let timeslotDay = await DJ.find({Date: currentTimeslot.Date});
   let timeslotDay1= timeslotDay[0];
   //console.log("3: "+ timeslotDay1);
   let timeslotDay2 = JSON.parse(JSON.stringify(timeslotDay1));
@@ -164,7 +132,7 @@ app.post('/DJTimeSlot', async function(req, res) {
     currentTimeslot.Playlist[req.body.index].song = req.body.songName;
     currentTimeslot.Playlist[req.body.index].description = req.body.description;
     console.log(currentTimeslot.Playlist[req.body.index]);
-    let timeslotDay = await day.find({Date: currentTimeslot.Date});
+    let timeslotDay = await DJ.find({Date: currentTimeslot.Date});
     let curDay = timeslotDay[0];
     let newTimeSlots = [];
     let i = 0;
@@ -189,7 +157,7 @@ app.post('/DJTimeSlot', async function(req, res) {
       }
     }
     curDay.timeslots = newTimeSlots;
-    let updatedTime = await day.updateOne({Date: curDay.Date}, curDay);
+    let updatedTime = await DJ.updateOne({Date: curDay.Date}, curDay);
     console.log(updatedTime);
     res.send({ThisPlaylist: currentTimeslot.Playlist});
   }
@@ -205,7 +173,7 @@ app.get('/DJPlaylist', async function(req, res) {
 app.post('/DJPlaylist', async function(req, res) {
   if(req.body.page == 1) {
     currentTimeslot.Playlist = req.body.newPlaylist;
-    let timeslotDay = await day.find({Date: currentTimeslot.Date});
+    let timeslotDay = await DJ.find({Date: currentTimeslot.Date});
     let curDay = timeslotDay[0];
     let newTimeSlots = [];
     for(let time of curDay.timeslots) {
@@ -218,7 +186,7 @@ app.post('/DJPlaylist', async function(req, res) {
       }
     }
     curDay.timeslots = newTimeSlots;
-    let updatedTime = await day.updateOne({Date: curDay.Date}, curDay);
+    let updatedTime = await DJ.updateOne({Date: curDay.Date}, curDay);
     console.log(updatedTime);
     const newprevplay = new prevPlay({
       Name: req.body.playName,
@@ -230,7 +198,7 @@ app.post('/DJPlaylist', async function(req, res) {
   }
   else if(req.body.page == 0) {
     currentTimeslot.Playlist = req.body.newPlaylist;
-    let timeslotDay = await day.find({Date: currentTimeslot.Date});
+    let timeslotDay = await DJ.find({Date: currentTimeslot.Date});
     let curDay = timeslotDay[0];
     let newTimeSlots = [];
     for(let time of curDay.timeslots) {
@@ -243,11 +211,23 @@ app.post('/DJPlaylist', async function(req, res) {
       }
     }
     curDay.timeslots = newTimeSlots;
-    let updatedTime = await day.updateOne({Date: curDay.Date}, curDay);
+    let updatedTime = await DJ.updateOne({Date: curDay.Date}, curDay);
     console.log(updatedTime);
     res.send({ThisPlay: currentTimeslot.Playlist});
   }
 });
+
+function compareWeek(day1, day2) {
+    if(day1.DayNum < day2.DayNum) {
+      return -1;
+    }
+    else if(day1.DayNum > day2.DayNum) {
+      return 1;
+    }
+    else {
+      return 0;
+    }  
+  }
 //------------------------------------------------------------------------------------
 app.listen(8080, () => {
     console.log('Server is running on port 8080');
