@@ -36,6 +36,14 @@ const djSchema = new Schema({
     songs: [songSchema]
 }, { timestamps: true });
 */
+
+const songSchema = new Schema({
+    title: String,
+    artist: String,
+    duration: String,
+    genre: String,
+    flag: String
+  });
 const djSchema = new mongoose.Schema({
     Djname: String,
     Date: String,
@@ -43,15 +51,7 @@ const djSchema = new mongoose.Schema({
     DayNum: Number, 
     Time: String,
     playlistName: String,
-    Playlists:[
-      {
-        title: String,
-        artist: String,
-        duration: String,
-        genre: String,
-        flag: String
-      }
-    ] 
+    Playlists:[songSchema] 
   });
 
 const schedule = mongoose.model('schedule', scheduleSchema);
