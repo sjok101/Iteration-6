@@ -53,11 +53,6 @@ app.get('/', function (req, res) {
 //------------------------------------------------------------------------------------- DJ
 
 
-
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-// handle requests for static resources
-
 let weekNumber = 1;
 let currentTimeslot = {
   Date: "",
