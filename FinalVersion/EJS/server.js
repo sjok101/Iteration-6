@@ -2,7 +2,9 @@ var express = require('express');
 const mongoose = require('mongoose');
 const Song = require('./models/song');
 const DJ = require('./models/dj');
-const prevPlay = require('./models/dj');
+const prevPlay = require('./models/prevPlaylist');
+const AAA = require('./models/aaa');
+
 var app = express();
 var path = require('path');
 
