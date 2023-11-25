@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Listener_music</title>
+
+	<link rel="stylesheet" type="text/css" href="listener.css">
+
+
+	<style >
+		
+
+		.main_section{
+			background: rgb(66,69,73);
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			padding: 50px;
+			height: 755px;
+			
+		}
+
+
+		.category-container{
+			text-align: center;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+
+
+		}
+		
+		
+
+		.audio_control{
+			height: 70%;
+			width: 70%;
+			margin-left: auto;
+			margin-top: auto;
+			margin-bottom: auto;
+			margin-right: 10px;
+		}
+
+		
+		
+
+		img{
+			height: 50px;
+			width: 50px;
+			justify-self: start;
+			align-self: center;
+		}
+
+		.category-contents>div:hover{
+			background-color: rgb(125,125,125);
+		}
+		
+		.charts {
+			flex: auto;
+			width: 45%;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+		}
+		.charts div{
+			flex:auto;
+			display: flex;
+			flex-direction: column;
+			
+			font-weight: bold;
+			text-align: center;
+
+		}
+		.charts>div{
+			border-style: solid;
+		}
+		.charts div div{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+		}
+		.genres{
+			flex: auto;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			text-align: center;
+		}
+		.genres div{
+			display: grid;
+			grid-template-columns: auto auto auto;
+			padding: 10px;
+
+		}
+		.genres div div{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			font-weight: bold;
+		}
+
+		.genres>div>div:hover{
+			background-color: rgb(125,125,125);
+		}
+
+		.charts>div>div:hover{
+			background-color: rgb(125,125,125);
+		}
+
+
+		
+	</style>
+</head>
+<body style="color:#6699CC" >
+
+	<nav class = "nav_bar">	
+
+		<div class="nav_bar_left">
+			<button class="listener" onclick="window.location.href='/listener_main'">Listener</button>
+			<button class="dj">DJ</button>
+			<button class="producer">Producer</button>
+		</div>
+
+
+		<div class="nav_bar_middle"> Radio
+			
+		</div>
+
+
+		<div class="nav_bar_right"> 
+			<button class="profile" onclick="window.location.href='listener_profile'">Profile</button>
+
+
+			<form name = myForm action='http://localhost:8080/listener_main' onsubmit="return validateForm()" method='POST' >
+				<input class="search" type="text" id="search" name="search">
+				<input class="sub" type="submit" value="Submit">
+			</form>
+		</div>
+
+	</nav>
+
+	<div class = "media_bar">
+		<audio controls class="audio_control">
+			<source src="mck.mp3" type="audio/mpeg">
+		</audio>
+	</div>
+
+	<main class = "main_section" style="overflow-x: auto;">
+		
+
+		<% data.forEach ((d) => {%>
+			<div class="song" style="display: flex; width: 300px; height: fit-content;flex:200px">
+				<img src="/images/music_icon.jpg">
+				<div class="category-content">
+					<p><b><%= d.title%></b></p>
+					<p>by <%= d.artist%></p>
+				</div>
+			</div>	
+		<%})%>
+
+		
+
+		
+
+
+
+
+		
+
+			<script >
+				
+				window.onload = function(){
+					chart();
+					genre();
+				}
+
+				function validateForm() {
+				  var x = document.forms["myForm"]["search"].value;
+				  if (x == "" || x == null) {
+				    alert("Please enter keywords.");
+				    return false;
+				  }
+				}
+
+				function chart(){
+					const chart = document.querySelectorAll(".charts>div>div");
+					for(let i = 0; i < chart.length; i++){
+						chart[i].addEventListener("click", function(){alert("clicked")});
+
+					}
+				}
+				function genre(){
+					const genre = document.querySelectorAll(".genres>div>div");
+					for(let i = 0; i < genre.length; i++){
+						genre[i].addEventListener("click", function(){alert("clicked")});
+
+					}
+				}
+		
+
+			</script>
+	
+	</main>
+
+			<footer class = "foot_note"> Footnote			
+			</footer>
+
+	
+</body>
+</html>
