@@ -1,5 +1,10 @@
 var express = require('express');
 const mongoose = require('mongoose');
+mongoose.connect('mongodb://127.0.0.1:27017/radiostation');
+const db = mongoose.connection;
+db.once('open', () => {
+  console.log('connected to mongo');
+});
 const Song = require('./models/song');
 const DJ = require('./models/dj');
 const prevPlay = require('./models/prevPlaylist');
@@ -11,11 +16,10 @@ var path = require('path');
 
 //init view engine
 app.set('view engine', 'ejs');
-
-//set dir path
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+//set dir path
+app.use(express.static(path.join(__dirname, 'public')));
 
 ////////////////////////////////////////////////
 //               Add routes here              //
