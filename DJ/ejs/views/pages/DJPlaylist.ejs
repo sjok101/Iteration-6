@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="css/DJStyle.css">
+        <title>DJPlaylist</title>
+        <style>
+            .border .content .boxHeadings{
+                background-color: #202122;
+                display: inline-block;  
+                vertical-align: middle; 
+                width: 2400px;
+            }
+            .border .content .boxHeadings .AsHead{
+                float: left;
+                margin-left: 100px;
+                margin-right: 100px;
+            }
+
+            .border .content .boxHeadings .AsHead input{
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                width: 400px;
+            }
+            .border .content .boxHeadings .PrHead{
+                margin-left: 50%;
+            }
+
+            .border .content .boxHeadings .PrHead input{
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                width: 400px;
+            }
+            .border .content .boxHeadings .PrHead .reset{
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+            }
+            .border .content .boxHeadings .AsHead .reset{
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+            }
+
+            .border .content .box{
+                background-color: #202122;
+                display: inline-block;  
+                vertical-align: middle; 
+                width: 2400px;
+            }
+            .border .content .box .Assigned{
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                overflow-y: auto;
+                height: 800px;
+                float: left;
+                width: 1000px;
+                margin-left: 100px;
+                margin-right: 100px;
+                margin-top: 10px;
+                
+            }
+            .border .content .box .Assigned table{
+                border-collapse: collapse; 
+                width: 100%;         
+                
+            }
+            .border .content .box .Assigned table thead th{
+                position: sticky;
+                top: 0;
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                height: 30px;
+                font-size: 20px;
+            }
+            .border .content .box .Assigned table tbody tr{
+                margin-bottom: 5%;
+                border-bottom: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+            }
+
+            .border .content .box .Assigned table tbody tr td{
+                border-right: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9 ;
+                text-align: center;
+                height: 20px;
+            }
+            .border .content .box .Previous{
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                overflow-y: auto;
+                height: 800px;
+                width: 1000px;
+                margin-left: 100px;
+                margin-right: 100px;
+                margin-top: 10px;
+                
+            }
+            .border .content .box .Previous table{
+                border-collapse: collapse;
+                width: 100%;        
+                
+            }
+            .border .content .box .Previous table thead th{
+                position: sticky;
+                top: 0;
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                height: 30px;
+                font-size: 20px;
+            }
+            .border .content .box .Previous table tbody tr{
+                margin-bottom: 5%;
+                border-bottom: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+            }
+
+            .border .content .box .Previous table tbody tr td{
+                border-right: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9 ;
+                text-align: center;
+                height: 20px;
+            }
+            .border .content .Buttons #back{
+                margin-left: 100px;
+                padding: 10px; 
+                display: inline;
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9; 
+                background-color: #202122;
+            }
+
+            .border .content .Buttons #reset{
+                margin-left: 10px;
+                padding: 10px; 
+                display: inline;
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9; 
+                background-color: #202122;
+            }
+
+            .border .content .Buttons #save{
+                padding: 10px; 
+                margin-left: 655px;
+                width: 250px;
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                display: inline; 
+                background-color: #202122;
+            }
+            .border .content .Buttons #editform #leftlabel{
+                margin-left: 100px; 
+                font-size: 20px;     
+            }
+            .border .content .Buttons #editform #rightlabel{
+                margin-left: 10px; 
+                font-size: 20px;     
+            }
+            .border .content .Buttons #editform #playNamein{  
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                width: 150px;
+            }
+            .border .content .Buttons #editform #playDescription{ 
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+                width: 300px;
+                margin-right: 10px;
+                
+            }
+            .border .content .Buttons #editform #formButton{ 
+                padding: 5px;
+                font-size: 15px;
+                border-bottom: 2px solid #a9a9a9;
+                border-left: 2px solid #a9a9a9;
+                border-top: 2px solid #a9a9a9 ;
+                border-right: 2px solid #a9a9a9;
+            }
+        </style>
+        <%- include('../partials/NavbarDjplay'); %>
+        
+    </head>
+    <body>
+        <div class="border"> 
+            <main class = "content">
+                <header class="boxHeadings">
+                    <form class="AsHead">
+                        <h1>Assigned PlayList</h1>
+                        <label for="searchSongs" style="font-size: 30px;"> Search for songs:</label>
+                        <input type="text" id="searchPlaylistA" name="inputbox" value="">
+                        <input type="button" id="searchButton" style="width: 75px;"name="button" value="Search" onclick="searchSongA(this.form)">
+                    </form>
+                    <form class="PrHead">
+                        <h1>Previous PlayList</h1>
+                        <label for="searchPlaylist" style="font-size: 30px;"> Search for songs:</label>
+                        <input type="text" id="searchPlaylistP" name="inputbox" value="">
+                        <input type="button" id="searchButton" style="width: 75px;"name="button" value="Search" onclick="searchSongP(this.form)">
+                    </form>
+                </header>
+                <section class="box">
+                    <article class = "Assigned">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%">Song Name</th>
+                                    <th>Description</th>
+                                    <th style="width: 10%">Delete Song</th>
+                                </tr>
+                            </thead>
+                            <tbody id="assignTB">
+                            </tbody>
+                        </table>
+                    </article>
+                    <article class="Previous">
+                        <table>    
+                            <thead>
+                                <tr>
+                                    <th style="width: 25%">PlayList Name</th>
+                                    <th>Description</th>
+                                    <th style="width: 10%">Add songs</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prevTB">
+                            </tbody>
+                        </table>
+                    </article>
+                </section>
+                <footer class="Buttons">
+                    <form id="editform" style="display: contents;">
+                        <label id="leftlabel" for="playNamein">Playlist Name: </label>
+                        <input type="text" id="playNamein" name="inputbox" value="">
+                        <label id="rightlabel" for="playDescription">Playlist Description: </label>
+                        <input type="text" id="playDescription" name="input" value="">
+                        <input type="button" id="formButton" style="width: 250px;"name="button" value="Save And Add to Previous Playlist" onclick="saveAndAdd(this.form)">
+                    </form>
+                    <br/>
+                    <button id="back" onclick="backPage()">Back</button>
+                    <button id="reset" onclick="reset()">Reset</button>   
+                    <button id="save" onclick="savePlaylist()">Save Only</button>   
+                </footer>
+            </main>
+        </div>
+        <script>
+            /*
+            let asPlaylist = [
+            {
+                Song: "WOW SONG",
+                description: "wow that a song",
+            },
+            {
+                Song: "thats crazy",
+                description: "coco",
+            },
+            {
+                Song: "lofi1",
+                description: "lofi song",
+            },
+            {
+                Song: "WOW SONG2",
+                description: "wow that a song2",
+            },
+            {
+                Song: "like that",
+                description: "by josh smith and genre: pop",
+            },
+            {
+                Song: "sunset lover",
+                description: "by biscuit and great for sunsets",
+            }]
+
+            let prevPlaylist = [
+            {
+                Song: "lost within",
+                description: "footbal yay",
+            },
+            {
+                Song: "blue boi",
+                description: "futball ayy",
+            },
+            {
+                Song: "lofi1",
+                description: "lofi song",
+            },
+            {
+                Song: "lofi2",
+                description: "lofi song",
+            },
+            {
+                Song: "lofi3",
+                description: "lofi song",
+            },
+            {
+                Song: "lofi4",
+                description: "lofi song",
+            },
+            {
+                Song: "WOW SONG25",
+                description: "wow that a song too many",
+            },
+            {
+                Song: "in my dreams",
+                description: "by george washingtion",
+            },
+            {
+                Song: "lover of sunsets",
+                description: "sun falling down",
+            }]*/
+            let playlists = <%-JSON.stringify(TPlaylists)%>
+            console.log(playlists.Playlist);
+            console.log(playlists.prevPlaylist);
+            let asPlaylist = playlists.Playlist;
+            let prevPlaylist = playlists.prevPlaylist;
+            addALLSongsPlaylist();
+            addALLSongsPlaylist2();
+
+            function addALLSongsPlaylist() { 
+                let tb = document.getElementById("prevTB");
+                while(tb.firstElementChild) {
+                    let child = tb.firstElementChild;
+                    tb.removeChild(child);
+                }
+                let i = 0;
+                console.log(prevPlaylist);
+                for(let song of prevPlaylist) {
+                    let songS = Object.values(song);
+                    let row = document.createElement("tr");
+                    i++;
+                    let id = '';
+                    id +=i;
+                    row.setAttribute('id', id);
+                    row.setAttribute('class','row')
+                    let td1 = document.createElement("td");
+                    let td2 = document.createElement("td");
+                    let td3 = document.createElement("td");
+                    td1.innerHTML = songS[0];
+                    td2.innerHTML = songS[1];
+                    let add = document.createElement('BUTTON');
+                    add.setAttribute('id', 'add');   
+                    add.style.border = "none";
+                    add.innerHTML = "Add";
+                    add.addEventListener("click",addRow);
+                    td3.appendChild(add);
+                    row.appendChild(td1);
+                    row.appendChild(td2);
+                    row.appendChild(td3);
+                    tb.appendChild(row);             
+                }
+            }
+
+            function addALLSongsPlaylist2() { 
+                let tb = document.getElementById("assignTB");
+                while(tb.firstElementChild != null) {
+                    let child = tb.firstElementChild;
+                    tb.removeChild(child);
+                }
+                let i = 0;
+                for(let song of asPlaylist) {
+                    let songS = Object.values(song);
+                    let row = document.createElement("tr");
+                    i++;
+                    let id = '';
+                    id +=i;
+                    row.setAttribute('id', id);
+                    row.setAttribute('class','row')
+                    // Create cells
+                    let td1 = document.createElement("td");
+                    let td2 = document.createElement("td");
+                    let td3 = document.createElement("td");
+                    td1.innerHTML = songS[0];
+                    td2.innerHTML = songS[1];
+                    let deleteP = document.createElement('BUTTON');
+                    deleteP.setAttribute('id', 'delete');   
+                    deleteP.style.border = "none";
+                    deleteP.innerHTML = "Delete";
+                    deleteP.addEventListener("click",deleteRow);
+                    td3.appendChild(deleteP);
+                    row.appendChild(td1);
+                    row.appendChild(td2);
+                    row.appendChild(td3);
+                    tb.appendChild(row);             
+                }
+            }
+
+            function deleteRow() {
+                let rowId = event.target.parentNode.parentNode.id;  
+                let rownum = parseInt(rowId);
+                rownum--;
+                console.log(rownum);
+                asPlaylist.splice(rownum,1);
+                console.log("yo");
+                addALLSongsPlaylist2();
+            }
+            function addRow() {
+                let rowId = event.target.parentNode.parentNode.id;  
+                let rownum = parseInt(rowId);
+                rownum--;
+                console.log(rownum);
+                asPlaylist.push(prevPlaylist[rownum]);
+                addALLSongsPlaylist2();
+                console.log("here");
+            }
+            
+            function searchSongA(form) {
+                var inputValue = form.inputbox.value;
+                if(inputValue == "") {
+                    addALLSongsPlaylist2();
+                }
+                else {
+                    let tb = document.getElementById("assignTB");
+                    while(tb.firstElementChild) {
+                        let child = tb.firstElementChild;
+                        tb.removeChild(child);
+                    }
+                    let i = 0;
+                    for(let song of asPlaylist) {
+                        let songSeached = Object.values(song);
+                        console.log(inputValue + " = " + songSeached[0]);
+                        if(songSeached[0].includes(inputValue) == true) {
+                            console.log("True");
+                            let row = document.createElement("tr");
+                            i++;
+                            let id = '';
+                            id +=i;
+                            console.log("1");
+                            row.setAttribute('id', id);
+                            row.setAttribute('class','row');
+                            console.log("2");
+                            let td1 = document.createElement("td");
+                            let td2 = document.createElement("td");
+                            let td3 = document.createElement("td");
+                            console.log("3");
+                            td1.innerHTML = songSeached[0];
+                            td2.innerHTML = songSeached[1];
+                            let edit = document.createElement('BUTTON');
+                            edit.setAttribute('id', 'edit');   
+                            edit.style.border = "none";
+                            edit.innerHTML = "Edit";
+                            edit.addEventListener("click",deleteRow);
+                            td3.appendChild(edit);
+                            row.appendChild(td1);
+                            row.appendChild(td2);
+                            row.appendChild(td3);
+                            tb.appendChild(row);
+                            console.log("4");
+                        }             
+                    }
+                }
+            }
+
+            function searchSongP(form) {
+                var inputValue = form.inputbox.value;
+                if(inputValue == "") {
+                    addALLSongsPlaylist();
+                }
+                else {
+                    let tb = document.getElementById("prevTB");
+                    while(tb.firstElementChild) {
+                        let child = tb.firstElementChild;
+                        tb.removeChild(child);
+                    }
+                    let i = 0;
+                    for(let song of prevPlaylist) {
+                        let songSeached = Object.values(song);
+                        console.log(inputValue + " = " + songSeached[0]);
+                        if(songSeached[0].includes(inputValue) == true) {
+                            console.log("True");
+                            let row = document.createElement("tr");
+                            i++;
+                            let id = '';
+                            id +=i;
+                            console.log("1");
+                            row.setAttribute('id', id);
+                            row.setAttribute('class','row');
+                            console.log("2");
+                            let td1 = document.createElement("td");
+                            let td2 = document.createElement("td");
+                            let td3 = document.createElement("td");
+                            console.log("3");
+                            td1.innerHTML = songSeached[0];
+                            td2.innerHTML = songSeached[1];
+                            let edit = document.createElement('BUTTON');
+                            edit.setAttribute('id', 'edit');   
+                            edit.style.border = "none";
+                            edit.innerHTML = "Edit";
+                            edit.addEventListener("click",addRow);
+                            td3.appendChild(edit);
+                            row.appendChild(td1);
+                            row.appendChild(td2);
+                            row.appendChild(td3);
+                            tb.appendChild(row);
+                            console.log("4");
+                        }             
+                    }
+                }
+            }
+
+            function backPage() {
+                let ref = 'DJTimeSlot';
+                window.location.href=ref;
+            }
+            function savePlaylist() {
+                const fetchPromise = fetch('http://localhost:8080/DJPlaylist',{
+                    method: 'POST',
+                    cache: "no-store",
+                    headers:{
+                        'Accept': 'application/json',
+                    'Content-Type': 'application/json' 
+                    }, 
+                    body: JSON.stringify({
+                        page: 0,
+                        newPlaylist: asPlaylist,
+                        playName: "",
+                        playDescription: ""
+                    })
+                });
+                fetchPromise.then(function(response) {
+                    responseClone = response.clone();
+                    console.log(response);
+                    return response.json();
+                }).then(function(data) {
+                    console.log(data.ThisPlay);
+                    window.location.reload();
+                }, function(rejectionReason) { 
+                    console.log('Error parsing JSON from response:', rejectionReason, responseClone); 
+                    responseClone.text() 
+                    .then(function (bodyText) {
+                        console.log('Received the following instead of valid JSON:', bodyText);
+                    });
+                });
+            }
+            function saveAndAdd(form) {
+                let ref = 'DJTimeSlot';
+                if(form.inputbox.value != null) {
+                    const fetchPromise = fetch('http://localhost:8080/DJPlaylist',{
+                        method: 'POST',
+                        cache: "no-store",
+                        headers:{
+                            'Accept': 'application/json',
+                        'Content-Type': 'application/json' 
+                        }, 
+                        body: JSON.stringify({
+                            page: 1,
+                            newPlaylist: asPlaylist,
+                            playName: form.inputbox.value,
+                            playDescription: form.input.value
+                        })
+                    });
+                    fetchPromise.then(function(response) {
+                        responseClone = response.clone();
+                        console.log(response);
+                        return response.json();
+                    }).then(function(data) {
+                        console.log(data.ThisPlay);
+                        window.location.href=ref;
+                    }, function(rejectionReason) { 
+                        console.log('Error parsing JSON from response:', rejectionReason, responseClone); 
+                        responseClone.text() 
+                        .then(function (bodyText) {
+                            console.log('Received the following instead of valid JSON:', bodyText);
+                        });
+                    });
+                }
+            }
+            function reset() {
+                window.location.reload();
+            }
+    </script>
+    </body>
+</html>
