@@ -36,9 +36,27 @@ app.get('/', function (req, res) {
 });
 //------------------------------------------------------------------------------------- listner
 
-
-
 //------------------------------------------------------------------------------------- DJ
+
+const scheduleSchema = new mongoose.Schema({
+    Djname: String,
+    Date: String,
+    Week: Number,
+    DayNum: Number, 
+    Time: String,
+    playlistName: String,
+    Playlists:[
+      {
+        title: String,
+        artist: String,
+        duration: String,
+        genre: String,
+        flag: String
+      }
+    ] 
+  });
+
+const schedule = mongoose.model('schedule', scheduleSchema);
 const prevSchema = new mongoose.Schema({
     Name: String,
     description: String,
