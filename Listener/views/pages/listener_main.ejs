@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Listener_main</title>
+
+	<link rel="stylesheet" type="text/css" href="listener.css">
+
+	<style >
+		
+		.o, .x{
+			color: grey;
+			fill: grey;
+			cursor: pointer;
+		}
+		.category-container{
+			
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+
+
+		}
+		.podcast{						
+			text-align: center;
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.news{
+			text-align: center;
+			width: 100%;
+		}
+		.suggestion{
+			height: 95%;
+			border: solid;
+			border-color: #6699CC ;
+			width: 100%;
+		}
+
+		.category-button{
+			padding: 10px;
+			width: 100%;
+		}
+		
+
+		.audio_control{
+			height: 70%;
+			width: 70%;
+			margin-left: auto;
+			margin-top: auto;
+			margin-bottom: auto;
+			margin-right: 10px;
+
+		}
+		.category-contents{
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			
+		}
+
+		.category-contents>div{
+			display: flex;
+			padding: 2px;
+		}
+
+		
+
+		.category-content h2, .category-content p{
+			margin: 0;
+
+		}
+
+		.category-content h2{
+			letter-spacing: 1px;
+		}
+
+
+
+
+		.suggestion{
+			display: flex;
+			flex-direction: column;
+			justify-content: space-around;
+		}
+		.suggestion div div{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+		.suggestion button{
+			margin-top: auto;
+			margin-bottom: auto;
+			display: block;
+		}
+		
+
+		img{
+			height: 50px;
+			width: 50px;
+			justify-self: start;
+			align-self: center;
+		}
+
+		.category-contents>div:hover{
+			background-color: rgb(125,125,125);
+		}
+
+
+
+		
+	</style>
+	
+	
+</head>
+<body style="color:#6699CC" >
+	<nav class = "nav_bar">	
+
+		<div class="nav_bar_left">
+			<button class="listener" onclick="window.location.href='/listener_main'">Listener</button>
+			<button class="dj">DJ</button>
+			<button class="producer">Producer</button>
+		</div>
+
+
+		<div class="nav_bar_middle"> RADIO
+			
+		</div>
+
+
+		<div class="nav_bar_right"> 
+			<button onclick="window.location.href='http://localhost:8080/listener_profile'" class="profile" >Profile</button>
+
+			
+
+			<form name = myForm action='http://localhost:8080/listener_main' onsubmit="return validateForm()" method='POST' >
+				<input class="search" type="text" id="search" name="search">
+				<input class="sub" type="submit" value="Submit">
+			</form>
+		</div>
+
+	</nav>
+
+	<div class = "media_bar">
+		<audio controls class="audio_control">
+			<source src="mck.mp3" type="audio/mpeg">
+		</audio>
+	</div>
+
+	<main class = "main_section">
+
+		<div class="content">
+			<div class="category-container">
+				<div class="category-contents">
+					<div class="song">
+						<img src="/images/joji.jpg">
+						<div class="category-content">
+							<p><b><%- music[0].title%></b></p>
+							<p>by <%- music[0].artist%></p>
+						</div>
+					</div>
+
+					<div class="song">
+						<img src="/images/joji.jpg">
+						<div class="category-content">
+							<p><b><%- music[1].title%></b></p>
+							<p>by <%- music[1].artist%></p>
+						</div>
+					</div>
+					<div class="song">
+						<img src="/images/joji.jpg">
+						<div class="category-content">
+							<p><b><%- music[2].title%></b></p>
+							<p>by <%- music[2].artist%></p>
+						</div>
+					</div>
+					<div class="song">
+						<img src="/images/joji.jpg">
+						<div class="category-content">
+							<p><b><%- music[3].title%></b></p>
+							<p>by <%- music[3].artist%></p>
+						</div>
+					</div>
+					<div class="song">
+						<img src="/images/joji.jpg">
+						<div class="category-content">
+							<p><b><%- music[4].title%></b></p>
+							<p>by <%- music[4].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/joji.jpg">
+						<div class="category-content">
+							<p><b><%- music[5].title%></b></p>
+							<p>by <%- music[5].artist%></p>
+						</div>
+					</div>
+					
+
+				</div>
+
+			</div>
+
+			<div class="category-container">
+				<div class="category-contents">
+					<div>
+						<img src="/images/Divide_cover.png">
+						<div class="category-content">
+							<p><b><%- music[6].title%></b></p>
+							<p>by <%- music[6].artist%></p>
+						</div>
+					</div>
+
+					<div>
+						<img src="/images/Divide_cover.png">
+						<div class="category-content">
+							<p><b><%- music[7].title%></b></p>
+							<p>by <%- music[7].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/Divide_cover.png">
+						<div class="category-content">
+							<p><b><%- music[8].title%></b></p>
+							<p>by <%- music[8].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/Divide_cover.png">
+						<div class="category-content">
+							<p><b><%- music[9].title%></b></p>
+							<p>by <%- music[9].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/Divide_cover.png">
+						<div class="category-content">
+							<p><b><%- music[10].title%></b></p>
+							<p>by <%- music[10].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/Divide_cover.png">
+						<div class="category-content">
+							<p><b><%- music[11].title%></b></p>
+							<p>by <%- music[11].artist%></p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="category-container">
+				<div class="category-contents">
+					<div>
+						<img src="/images/Metro-Boomin.png">
+						<div class="category-content">
+							<p><b><%- music[12].title%></b></p>
+							<p>by <%- music[12].artist%></p>
+						</div>
+					</div>
+
+					<div>
+						<img src="/images/Metro-Boomin.png">
+						<div class="category-content">
+							<p><b><%- music[13].title%></b></p>
+							<p>by <%- music[13].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/Metro-Boomin.png">
+						<div class="category-content">
+							<p><b><%- music[14].title%></b></p>
+							<p>by <%- music[14].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/Metro-Boomin.png">
+						<div class="category-content">
+							<p><b><%- music[15].title%></b></p>
+							<p>by <%- music[15].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/Metro-Boomin.png">
+						<div class="category-content">
+							<p><b><%- music[16].title%></b></p>
+							<p>by <%- music[16].artist%></p>
+						</div>
+					</div>
+					<div>
+						<img src="/images/Metro-Boomin.png">
+						<div class="category-content">
+							<p><b><%- music[17].title%></b></p>
+							<p>by <%- music[17].artist%></p>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+			<div class="suggestion"> <b style="text-align: center;">Suggestion</b>
+			<ol style="overflow-y: scroll;scrollbar-color :black">
+
+				<% music.forEach ((d) => {%>
+					<li>
+						<div>
+							<div>
+								<p><%- d.title%> - <%- d.artist%></p>
+								<div>
+									<div class="o">
+										<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M720-120H320v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h218q32 0 56 24t24 56v80q0 7-1.5 15t-4.5 15L794-168q-9 20-30 34t-44 14ZM240-640v520H80v-520h160Z"/></svg>
+									</div>
+									<div class="x">
+										<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24"><path d="M240-840h400v520L360-40l-50-50q-7-7-11.5-19t-4.5-23v-14l44-174H120q-32 0-56-24t-24-56v-80q0-7 1.5-15t4.5-15l120-282q9-20 30-34t44-14Zm480 520v-520h160v520H720Z"/></svg>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>	
+				<%})%>
+
+
+				
+
+				
+			</ol>
+				
+			<script >
+				window.onload = function(){
+					setupLikeButtons();
+					song();
+
+				}
+
+				function setupLikeButtons(){
+					const obuttons = document.querySelectorAll(".o");
+					const xbuttons = document.querySelectorAll(".x");
+
+					const allsong = <%- JSON.stringify(music)%>
+					for(let i = 0; i <obuttons.length; i++){
+						if(allsong[i].flag == "Liked"){
+							const thumbsup = obuttons[i].querySelector("svg");
+				  			const thumbsdown = obuttons[i].parentElement.querySelector(".x").querySelector("svg");
+				  			thumbsup.style.fill = "blue"
+				  			thumbsdown.style.fill = "grey";
+						}
+						if(allsong[i].flag == "Disliked"){
+							const thumbsup = obuttons[i].querySelector("svg");
+				  			const thumbsdown = obuttons[i].parentElement.querySelector(".x").querySelector("svg");
+				  			thumbsup.style.fill = "grey"
+				  			thumbsdown.style.fill = "red";
+						}
+						if(allsong[i].flag == "null"){
+							const thumbsup = obuttons[i].querySelector("svg");
+				  			const thumbsdown = obuttons[i].parentElement.querySelector(".x").querySelector("svg");
+				  			thumbsup.style.fill = "grey"
+				  			thumbsdown.style.fill = "grey";
+						}
+
+					}
+
+
+					for (let i = 0; i <obuttons.length; i++){
+						obuttons[i].addEventListener("click", async function() {
+							const thumbsup = obuttons[i].querySelector("svg");
+				  			const thumbsdown = obuttons[i].parentElement.querySelector(".x").querySelector("svg");
+				  			thumbsup.style.fill = (thumbsup.style.fill=="blue")?"grey":"blue";
+				  			console.log(i);
+				  			if(thumbsup.style.fill=="blue")
+				  			{
+				  				
+				  				const thisSong = <%- JSON.stringify(music)%>//------------------------------------------------------------------------------------------------------------
+				  				thisSong[i].flag = "Liked";
+				  				const res = await fetch('http://localhost:8080/listener_main',{
+								method:'POST',
+								headers:{"Content-Type": 'application/json'},
+								body: JSON.stringify(thisSong[i])						
+								}).then(res => { console.log("Request complete! response:", res)});
+				  			}
+				  			if(thumbsup.style.fill=="grey")
+				  			{
+				  				
+				  				const thisSong = <%- JSON.stringify(music)%>//------------------------------------------------------------------------------------------------------------
+				  				thisSong[i].flag =  "null";
+				  				const res = await fetch('http://localhost:8080/listener_main',{
+								method:'POST',
+								headers:{"Content-Type": 'application/json'},
+								body: JSON.stringify(thisSong[i])						
+								}).then(res => { console.log("Request complete! response:", res)});
+				  			}	
+				  			thumbsdown.style.fill = "grey";
+						});
+					}
+
+					for (let i = 0; i <xbuttons.length; i++){
+						xbuttons[i].addEventListener("click", async function() {
+				  			const thumbsdown = xbuttons[i].querySelector("svg");
+				  			const thumbsup = xbuttons[i].parentElement.querySelector(".o").querySelector("svg");
+				  			thumbsup.style.fill = "grey";			  			
+				  			thumbsdown.style.fill=(thumbsdown.style.fill=="red")?"grey":"red";
+				  			if(thumbsdown.style.fill=="red")
+				  			{
+				  				
+				  				const thisSong = <%- JSON.stringify(music)%>//------------------------------------------------------------------------------------------------------------
+				  				thisSong[i].flag = "Disliked";
+				  				const res = await fetch('http://localhost:8080/listener_main',{
+								method:'POST',
+								headers:{"Content-Type": 'application/json'},
+								body: JSON.stringify(thisSong[i])						
+								}).then(res => { console.log("Request complete! response:", res)});
+				  			}
+				  			if(thumbsdown.style.fill=="grey")
+				  			{
+				  				
+				  				const thisSong = <%- JSON.stringify(music)%> //------------------------------------------------------------------------------------------------------------
+				  				thisSong[i].flag = "null";
+				  				const res = await fetch('http://localhost:8080/listener_main',{
+								method:'POST',
+								headers:{"Content-Type": 'application/json'},
+								body: JSON.stringify(thisSong[i])						
+								}).then(res => { console.log("Request complete! response:", res)});
+				  			}
+						});
+					}
+
+				}
+				function validateForm() {
+				  var x = document.forms["myForm"]["search"].value;
+				  if (x == "" || x == null) {
+				    alert("Please enter keywords.");
+				    return false;
+				  }
+				}
+				function song(){
+					const songs = document.querySelectorAll(".category-contents>div");
+					for(let i = 0; i < songs.length; i++){
+						songs[i].addEventListener("click", function(){
+							window.location.href='mck.mp3'
+						});
+					}
+				}
+		
+
+			</script>
+			</div>			
+		</div>
+
+	
+	</main>
+
+			<footer class = "foot_note"> Footnote			
+			</footer>
+
+	
+</body>
+</html>
