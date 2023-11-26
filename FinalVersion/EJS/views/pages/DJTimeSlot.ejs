@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="css/DJStyle.css">
         <title>DJTimeSlot</title>
         <style>
             * {
@@ -182,6 +181,10 @@
                 text-align: center;
                 height: 20px;
             }
+            .border .content .box .Assigned #assignedPlaylist #k .row td p{
+                display: inline-block;
+                margin-left: 5%;
+            }
             .border .content .box .Previous{
                 border-bottom: 2px solid #a9a9a9;
                 border-left: 2px solid #a9a9a9;
@@ -342,7 +345,6 @@
                                 <tr>
                                     <th style="width: 25%">Song Name</th>
                                     <th>Description</th>
-                                    <th style="width: 10%">Edit</th>
                                 </tr>
                             </thead>
                             <tbody id="k">
@@ -359,44 +361,18 @@
             </main>
         </div>
         <script>
-            /*
-            let playlist = [
-            {
-                song: "WOW SONG",
-                description: "wow that a song",
-            },
-            {
-                song: "thats crazy",
-                description: "coco",
-            },
-            {
-                song: "lofi1",
-                description: "lofi song",
-            },
-            {
-                song: "WOW SONG2",
-                description: "wow that a song2",
-            },
-            {
-                song: "like that",
-                description: "by josh smith and genre: pop",
-            },
-            {
-                song: "sunset lover",
-                description: "by biscuit and great for sunsets",
-            }]*/
-            let editedRow = 0;
             let timeslot = <%-JSON.stringify(TimeSlot)%>
-           // console.log(timeslot);
+            console.log(timeslot);
             let prevPlaylists = timeslot.Playlists;
-            //console.log(prevPlaylists);
+            console.log(prevPlaylists);
             let header = document.getElementById("head");
             let time = timeslot.Time
             console.log(time);
             let date = timeslot.Date;
             console.log(date);
-            header.innerHTML = "Date: "+ date + " Time: " + time;
+            header.innerHTML = "Date: "+ date + "<br> Time: " + time;
             let playlist = timeslot.Playlist;
+            console.log(playlist);
             addALLprevPlaylist()
             addALLSongsPlaylist();
             
@@ -448,19 +424,11 @@
                     row.setAttribute('id', id);
                     row.setAttribute('class','row')
                     let td1 = document.createElement("td");
-                    let td2 = document.createElement("td");
-                    let td3 = document.createElement("td");
-                    td1.innerHTML = songS[0];
-                    td2.innerHTML = songS[1];
-                    let edit = document.createElement('BUTTON');
-                    edit.setAttribute('id', 'edit');   
-                    edit.style.border = "none";
-                    edit.innerHTML = "Edit";
-                    edit.addEventListener("click",editRow);
-                    td3.appendChild(edit);
+                    let td2 = document.createElement("td");;
+                    td1.innerHTML = songS[1];
+                    td2.innerHTML = "<p>Artist: " + songS[2] + "</p><p>genre: " + songS[4] + "</p><p>Duration: " + songS[3] +"</p>";
                     row.appendChild(td1);
                     row.appendChild(td2);
-                    row.appendChild(td3);
                     tb.appendChild(row);             
                 }
             } 
@@ -497,66 +465,6 @@
                 });
 
             }
-            function editRow(index) {
-                let rowId = event.target.parentNode.parentNode.id;  
-                let rownum = parseInt(rowId);
-                rownum--;
-                let songData = playlist[rownum];
-                editedRow = rownum;
-                let songD = Object.values(songData);
-                let songNameEdit = songD[0];
-                let descEdit = songD[1];
-                let dialog = document.getElementById("editpopup");
-                let songInput = document.getElementById("songNamein");
-                let descInput = document.getElementById("songDescription"); 
-                songInput.setAttribute("value",songNameEdit);
-                songInput.value = songNameEdit;   
-                descInput.setAttribute("value",descEdit);
-                descInput.value = descEdit;
-                dialog.show();        
-            }
-            function makeChange(form) {
-                if(form.inputbox.value != "") {
-                    playlist[editedRow].song = form.inputbox.value;
-                }
-                playlist[editedRow].description = form.input.value;
-                let box = document.getElementById("editpopup");
-                box.close(playlist[editedRow].song);
-                updateDB(playlist[editedRow].song,playlist[editedRow].description,editedRow);
-            }
-
-            function updateDB(song,desc,row) {
-                const fetchPromise = fetch('http://localhost:8080/DJTimeSlot',{
-                    method: 'POST',
-                    cache: "no-store",
-                    headers:{
-                        'Accept': 'application/json',
-                    'Content-Type': 'application/json' 
-                    }, 
-                    body: JSON.stringify({
-                        playName: "",
-                        page: 0,
-                        songName: song,
-                        description: desc,
-                        index: row
-                    })
-                });
-                fetchPromise.then(function(response) {
-                    responseClone = response.clone();
-                    console.log(response);
-                    return response.json();
-                }).then(function(data) {
-                    console.log(data.ThisPlaylist);
-                    playlist = data.ThisPlaylist;
-                    window.location.reload();
-                }, function(rejectionReason) { 
-                    console.log('Error parsing JSON from response:', rejectionReason, responseClone); 
-                    responseClone.text() 
-                    .then(function (bodyText) {
-                        console.log('Received the following instead of valid JSON:', bodyText);
-                    });
-                });
-            }
 
             function searchPrev(form) {
                 var inputValue = form.inputbox.value;
@@ -567,26 +475,41 @@
                     let i = 0;
                     let check = false;
                     let list = document.getElementById("prevList");
-                    let listNames = list.querySelectorAll("#Name");
-                    let listdesc = list.querySelectorAll("#desc");
-                    let listButton = list.querySelectorAll("#option");
                     while(list.firstElementChild) {
                         let child = list.firstElementChild;
                         list.removeChild(child);
                     }
-                    let input = inputValue.toLowerCase(); 
-                    for(let p of listNames) {
-                        let play = p.innerHTML;
-                        if(play.includes(input) == true) {
+                    //let input = inputValue.toLowerCase();
+                    for(let plays of prevPlaylists) {
+                        let prevPlaylist = Object.values(plays);
+                        console.log(prevPlaylist[1] + " = " + inputValue);
+                        let playN = prevPlaylist[1].toLowerCase();
+                        let input = inputValue.toLowerCase();
+                        if(playN.includes(input)==true) {
+    
+                            let play = document.createElement('li');
+                            let Name = document.createElement('p');
+                            Name.setAttribute('id', 'Name');  
+                            Name.style.display = "inline-block";          
+                            Name.innerHTML = prevPlaylist[1];                
+                            play.appendChild(Name);
+                            list.appendChild(play);
+                            let desc = document.createElement('p');
+                            desc.setAttribute('id', 'desc');   
+                            desc.style.display = "inline-block";
+                            desc.innerHTML = prevPlaylist[2];         
+                            play.appendChild(desc);
+                            list.appendChild(play);
+                            let optionB = document.createElement('BUTTON');
+                            optionB.setAttribute('id', 'option');              
+                            let buText = document.createTextNode("Add Songs");       
+                            optionB.appendChild(buText);
+                            optionB.addEventListener('click',() => pageNext2(prevPlaylist[1]));
+                            play.appendChild(optionB);
+                            list.appendChild(play); 
                             check = true;
-                            let li = document.createElement('li');
-                            li.appendChild(p);
-                            li.appendChild(listdesc[i]);
-                            li.appendChild(listButton[i]); 
-                            list.appendChild(li);
                         }
-                        i++;
-                    }
+                    } 
                     if(check == false) {
                         while(list.firstElementChild) {
                             let child = list.firstElementChild;
@@ -610,8 +533,10 @@
                     let i = 0;
                     for(let song of playlist) {
                         let songSeached = Object.values(song);
-                        console.log(inputValue + " = " + songSeached[0]);
-                        if(songSeached[0].includes(inputValue) == true) {
+                        console.log(inputValue + " = " + songSeached[1]);
+                        let songN = songSeached[1].toLowerCase();
+                        let input = inputValue.toLowerCase();
+                        if(songN.includes(input) == true) {
                             let row = document.createElement("tr");
                             i++;
                             let id = '';
@@ -620,18 +545,10 @@
                             row.setAttribute('class','row');
                             let td1 = document.createElement("td");
                             let td2 = document.createElement("td");
-                            let td3 = document.createElement("td");
-                            td1.innerHTML = songSeached[0];
-                            td2.innerHTML = songSeached[1];
-                            let edit = document.createElement('BUTTON');
-                            edit.setAttribute('id', 'edit');   
-                            edit.style.border = "none";
-                            edit.innerHTML = "Edit";
-                            edit.addEventListener("click",editRow);
-                            td3.appendChild(edit);
+                            td1.innerHTML = songSeached[1];
+                            td2.innerHTML = "<p>Artist: " + songSeached[2] + "</p><p>genre: " + songSeached[4] + "</p><p>Duration: " + songSeached[3] +"</p>";
                             row.appendChild(td1);
                             row.appendChild(td2);
-                            row.appendChild(td3);
                             tb.appendChild(row);
                         }             
                     }
