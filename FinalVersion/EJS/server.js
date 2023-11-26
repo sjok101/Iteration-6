@@ -77,9 +77,14 @@ app.get('/DJHomepage', async function(req, res) {
 
 app.post('/DJHomepage', async function(req, res) {
   if(req.body.page == 0) {
+    let temp = weekNumber;
     weekNumber =req.body.WeekNum;
     console.log(weekNumber);
     let nweek = await DJ.find({Week: weekNumber});
+    if(nweek.length == 0) {
+      weekNumber = temp;
+      nweek = await DJ.find({Week: weekNumber});
+    }
     nweek.sort(compareWeek);
     res.send({ThisWeek: nweek});
   }
