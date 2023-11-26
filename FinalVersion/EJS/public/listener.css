@@ -1,0 +1,121 @@
+body{
+
+			display: flex;
+			flex-direction: column;
+			background: #1c1d24;
+		}
+
+		div {
+			margin: 10px ;
+		}
+		.nav_bar{
+			border: solid;
+			border-color: black;
+			background: #28282b;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			height: 70px;
+		}
+		.media_bar{
+			border: solid;
+			border-color: black;	
+			background: #28282b;
+			height: 50px;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+		.main_section{
+			border: solid;
+			border-color: black;
+			background: #28282b;
+			display: flex;
+			flex-direction: column;
+			height: 755px;
+		}
+		.content{
+			display: flex;
+			flex-direction: row;
+			height: 100%;
+			
+		}
+
+		.foot_note{
+			border: solid;
+			border-color: black;
+			margin-top: 10px;
+			text-align: center;
+			background: #28282b;
+			height: auto;
+			
+		}
+
+		.nav_bar_left{
+			margin-right: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: stretch;
+		}
+		.nav_bar_middle{ 	
+			display: flex;
+			align-items: center;
+			justify-content: stretch;
+		}
+		.nav_bar_right{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			
+		}
+		.profile{
+			padding: 10px;
+		}
+		.language{
+			padding: 10px;
+		}
+		.search{
+			padding: 10px;
+		}
+		.sub{
+			padding: 10px;
+		}
+
+		.listener{
+			padding: 10px;
+		}
+		.dj{
+			padding: 10px;
+		}
+		.producer{
+			padding: 10px;
+		}
+		button{
+			text-align: center;
+			width: 100px;
+			margin: 30px;
+			background-color: #1c1d24;
+    		color: #6699cc;
+    		border: 3px solid black;
+    		border-top: 3px solid #575e66;
+    		border-left: 3px solid #575e66;
+		}
+		::-webkit-scrollbar {
+   		 -webkit-appearance: none;
+   			 width: 15px;
+}
+		::-webkit-scrollbar-thumb{
+			background-color:#6699CC ;
+		}
+		::-webkit-scrollbar-track{
+			background-color: rgb(66, 69, 73);
+		}
+		.audio_control{
+			height: 70%;
+			width: 100%;
+			margin-left: auto;
+			margin-top: auto;
+			margin-bottom: auto;
+			margin-right: 10px;
+
+		}
