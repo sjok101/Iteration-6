@@ -148,6 +148,24 @@
 	<main class = "main_section">
 
 		<div class="content">
+
+			<div class="category-container">
+				<h2 style="text-align:center;">All songs</h2>
+				<div class="category-contents">
+					<% music.forEach ((d) => {%>
+						<div class="song" >
+							<!-- <img src="/images/Divide_cover.png"> -->
+							<div class="category-content">
+								<p><b><%= d.title%></b></p>
+								<p>by <%= d.artist%></p>
+							</div>
+						</div>	
+					<%})%>
+					
+
+				</div>
+			</div>
+			
 			<div class="category-container">
 				<h2 style="text-align:center;">Reference playlists</h2>
 				<div class="category-contents">
@@ -170,22 +188,7 @@
 
 			</div>
 
-			<div class="category-container">
-				<h2 style="text-align:center;">All songs</h2>
-				<div class="category-contents">
-					<% music.forEach ((d) => {%>
-						<div class="song" >
-							<!-- <img src="/images/Divide_cover.png"> -->
-							<div class="category-content">
-								<p><b><%= d.title%></b></p>
-								<p>by <%= d.artist%></p>
-							</div>
-						</div>	
-					<%})%>
-					
-
-				</div>
-			</div>
+			
 
 		<!-- 	<div class="category-container">
 				<h2>Playlist 3</h2>
