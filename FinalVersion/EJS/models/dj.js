@@ -54,6 +54,9 @@ const djSchema = new mongoose.Schema({
     Playlists:[songSchema] 
   });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 56af8c1a50900c87e5bbf38a77f794de4bbcfa5a
 const DJ = mongoose.model('djs', djSchema);
 module.exports = DJ;

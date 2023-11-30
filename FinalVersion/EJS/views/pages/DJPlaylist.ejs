@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="css/DJStyle.css">
         <title>DJPlaylist</title>
         <style>
             * {
@@ -177,6 +176,10 @@
                 text-align: center;
                 height: 20px;
             }
+            .border .content .box .Assigned table tbody tr td p{
+                display: inline-block;
+                margin-left: 5%;
+            }
             .border .content .box .Previous{
                 border-bottom: 2px solid #a9a9a9;
                 border-left: 2px solid #a9a9a9;
@@ -216,6 +219,10 @@
                 border-left: 2px solid #a9a9a9 ;
                 text-align: center;
                 height: 20px;
+            }
+            .border .content .box .Previous table tbody tr td p{
+                display: inline-block;
+                margin-left: 5%;
             }
             .border .content .Buttons #back{
                 margin-left: 100px;
@@ -450,8 +457,8 @@
                     let td1 = document.createElement("td");
                     let td2 = document.createElement("td");
                     let td3 = document.createElement("td");
-                    td1.innerHTML = songS[0];
-                    td2.innerHTML = songS[1];
+                    td1.innerHTML = songS[1];
+                    td2.innerHTML = "<p>Artist: " + songS[2] + "</p><p>genre: " + songS[4] + "</p><p>Duration: " + songS[3] +"</p>";
                     let add = document.createElement('BUTTON');
                     add.setAttribute('id', 'add');   
                     add.style.border = "none";
@@ -484,8 +491,8 @@
                     let td1 = document.createElement("td");
                     let td2 = document.createElement("td");
                     let td3 = document.createElement("td");
-                    td1.innerHTML = songS[0];
-                    td2.innerHTML = songS[1];
+                    td1.innerHTML = songS[1];
+                    td2.innerHTML = "<p>Artist: " + songS[2] + "</p><p>genre: " + songS[4] + "</p><p>Duration: " + songS[3] +"</p>";
                     let deleteP = document.createElement('BUTTON');
                     deleteP.setAttribute('id', 'delete');   
                     deleteP.style.border = "none";

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link rel="stylesheet" href="css/DJStyle.css">
         <title>DJHome</title>
         <style>
             * {
@@ -326,42 +325,73 @@
             </main>
         </div>
         <script>
-            let weekNumber = 1;
             let week = <%-JSON.stringify(ThisWeek)%>
-            let dayVal = Object.values(week[0]);
-            let day2Val = Object.values(week[1]);
-            let day3Val = Object.values(week[2]);
-            let day4Val = Object.values(week[3]);
-            let day5Val = Object.values(week[4]);
-            let day6Val = Object.values(week[5]);
-            let day7Val = Object.values(week[6]);
+            let day1 = [];
+            let day2 = [];
+            let day3 = [];
+            let day4 = [];
+            let day5 = [];
+            let day6 = [];
+            let day7 = [];
+            let firstLoop = 1;
+            let weekNumber = 0;
+            console.log(week);
+            for(let dayO of week) {
+                console.log(dayO);
+                let day = Object.values(dayO);
+                console.log(day);
+                if(firstLoop == 1) {
+                    weekNumber = day[3];
+                    console.log(weekNumber);
+                    firstLoop = 0;
+                }
+                if(day[4] == 0) {
+                    day1.push(day);
+                }
+                else if(day[4] == 1) {
+                    day2.push(day);
+                }
+                else if(day[4] == 2) {
+                    day3.push(day);
+                }
+                else if(day[4] == 3) {
+                    day4.push(day);
+                }
+                else if(day[4] == 4) {
+                    day5.push(day);
+                }
+                else if(day[4] == 5) {
+                    day6.push(day);
+                }
+                else if(day[4] == 6) {
+                    day7.push(day);
+                }
+            }
+            console.log(day1);
             let d = document.getElementById("day1");
-            d.innerHTML = dayVal[1];
+            d.innerHTML = day1[0][2];
             d.addEventListener("click",dayHandler);
             let d2 = document.getElementById("day2");
-            d2.innerHTML = day2Val[1];
+            d2.innerHTML = day2[0][2];
             d2.addEventListener("click",day2Handler);
             let d3 = document.getElementById("day3");
-            d3.innerHTML = day3Val[1];
+            d3.innerHTML = day3[0][2];
             d3.addEventListener("click",day3Handler);       
             let d4 = document.getElementById("day4");
-            d4.innerHTML = day4Val[1];
+            d4.innerHTML = day4[0][2];
             d4.addEventListener("click",day4Handler);
             let d5 = document.getElementById("day5");
-            d5.innerHTML = day5Val[1];
+            d5.innerHTML = day5[0][2];
             d5.addEventListener("click",day5Handler);
             let d6 = document.getElementById("day6");
-            d6.innerHTML = day6Val[1];
+            d6.innerHTML = day6[0][2];
             d6.addEventListener("click",day6Handler);
             let d7 = document.getElementById("day7");
-            d7.innerHTML = day7Val[1];
+            d7.innerHTML = day7[0][2];
             d7.addEventListener("click",day7Handler);
-            console.log("here");
             
             async function leftW() {
-                if(weekNumber == 1) {
-                    weekNumber--;
-                }
+                weekNumber--;            
                 const fetchPromise = fetch('http://localhost:8080/DJHomepage',{
                 method: 'POST',
                 cache: "no-store",
@@ -395,22 +425,46 @@
             }
 
             function changeData(nweek) {
-                //console.log(nweek);
-                let dayVal = Object.values(nweek[0]);
-                console.log(dayVal);
-                d.innerHTML = dayVal[1];
-                let day2Val = Object.values(nweek[1]);
-                d2.innerHTML = day2Val[1];
-                let day3Val = Object.values(nweek[2]);
-                d3.innerHTML = day3Val[1];
-                let day4Val = Object.values(nweek[3]);
-                d4.innerHTML = day4Val[1];
-                let day5Val = Object.values(nweek[4]);
-                d5.innerHTML = day5Val[1];
-                let day6Val = Object.values(nweek[5]);
-                d6.innerHTML = day6Val[1];
-                let day7Val = Object.values(nweek[6]);
-                d7.innerHTML = day7Val[1];
+                day1 = [];
+                day2 = [];
+                day3 = [];
+                day4 = [];
+                day5 = [];
+                day6 = [];
+                day7 = [];
+                for(let dayO of nweek) {
+                    console.log(dayO);
+                    let day = Object.values(dayO);
+                    console.log(day);
+                    if(day[4] == 0) {
+                        day1.push(day);
+                    }
+                    else if(day[4] == 1) {
+                        day2.push(day);
+                    }
+                    else if(day[4] == 2) {
+                        day3.push(day);
+                    }
+                    else if(day[4] == 3) {
+                        day4.push(day);
+                    }
+                    else if(day[4] == 4) {
+                        day5.push(day);
+                    }
+                    else if(day[4] == 5) {
+                        day6.push(day);
+                    }
+                    else if(day[4] == 6) {
+                        day7.push(day);
+                    }
+                }
+                d.innerHTML = day1[0][2];
+                d2.innerHTML = day2[0][2];
+                d3.innerHTML = day3[0][2];
+                d4.innerHTML = day4[0][2];
+                d5.innerHTML = day5[0][2];
+                d6.innerHTML = day6[0][2];
+                d7.innerHTML = day7[0][2];
                 d.addEventListener("click",dayHandler);
                 d2.addEventListener("click",day2Handler);
                 d3.addEventListener("click",day3Handler);       
@@ -421,6 +475,7 @@
             }
 
             function rightW() {
+                weekNumber++;
                 const fetchPromise = fetch('http://localhost:8080/DJHomepage',{
                 method: 'POST',
                 cache: "no-store",
@@ -454,18 +509,17 @@
             }
 
             function dayHandler() {
-                console.log(dayVal);
+                console.log(day1);
                 let section = document.getElementById("Timeslots");
-                document.getElementById("date").innerHTML = "Date: " + dayVal[1];
+                document.getElementById("date").innerHTML = "Date: " + day1[0][2];
                 while(section.firstElementChild) {
                     let child = section.firstElementChild;
                     section.removeChild(child);
                 }
-                for(let times of dayVal[4]) {
-                    let tSlot = Object.values(times);
+                for(let times of day1) { 
                     let timeSlot = document.createElement('BUTTON');
                     timeSlot.setAttribute('id', 'timeslot');
-                    let time = document.createTextNode(tSlot[0]);
+                    let time = document.createTextNode(times[5]);
                     timeSlot.appendChild(time);
                     section.appendChild(timeSlot);
                 }
@@ -473,17 +527,17 @@
                 timeButtons.forEach(addListen)
             }
             function day2Handler() {
+                console.log(day2);
                 let section = document.getElementById("Timeslots");
-                document.getElementById("date").innerHTML = "Date: " + day2Val[1];
+                document.getElementById("date").innerHTML = "Date: " + day2[0][2];
                 while(section.firstElementChild) {
                     let child = section.firstElementChild;
                     section.removeChild(child);
                 }
-                for(let times of day2Val[4]) {
-                    let tSlot = Object.values(times);
+                for(let times of day2) { 
                     let timeSlot = document.createElement('BUTTON');
                     timeSlot.setAttribute('id', 'timeslot');
-                    let time = document.createTextNode(tSlot[0]);
+                    let time = document.createTextNode(times[5]);
                     timeSlot.appendChild(time);
                     section.appendChild(timeSlot);
                 }
@@ -491,17 +545,17 @@
                 timeButtons.forEach(addListen)
             }
             function day3Handler() {
+                console.log(day3);
                 let section = document.getElementById("Timeslots");
-                document.getElementById("date").innerHTML = "Date: " + day3Val[1];
+                document.getElementById("date").innerHTML = "Date: " + day3[0][2];
                 while(section.firstElementChild) {
                     let child = section.firstElementChild;
                     section.removeChild(child);
                 }
-                for(let times of day3Val[4]) {
-                    let tSlot = Object.values(times);
+                for(let times of day3) { 
                     let timeSlot = document.createElement('BUTTON');
                     timeSlot.setAttribute('id', 'timeslot');
-                    let time = document.createTextNode(tSlot[0]);
+                    let time = document.createTextNode(times[5]);
                     timeSlot.appendChild(time);
                     section.appendChild(timeSlot);
                 }
@@ -509,17 +563,17 @@
                 timeButtons.forEach(addListen)
             }
             function day4Handler() {
+                console.log(day4);
                 let section = document.getElementById("Timeslots");
-                document.getElementById("date").innerHTML = "Date: " + day4Val[1];
+                document.getElementById("date").innerHTML = "Date: " + day4[0][2];
                 while(section.firstElementChild) {
                     let child = section.firstElementChild;
                     section.removeChild(child);
                 }
-                for(let times of day4Val[4]) {
-                    let tSlot = Object.values(times);
+                for(let times of day4) { 
                     let timeSlot = document.createElement('BUTTON');
                     timeSlot.setAttribute('id', 'timeslot');
-                    let time = document.createTextNode(tSlot[0]);
+                    let time = document.createTextNode(times[5]);
                     timeSlot.appendChild(time);
                     section.appendChild(timeSlot);
                 }
@@ -527,17 +581,17 @@
                 timeButtons.forEach(addListen)
             }
             function day5Handler() {
+                console.log(day5);
                 let section = document.getElementById("Timeslots");
-                document.getElementById("date").innerHTML = "Date: " + day5Val[1];
+                document.getElementById("date").innerHTML = "Date: " + day5[0][2];
                 while(section.firstElementChild) {
                     let child = section.firstElementChild;
                     section.removeChild(child);
                 }
-                for(let times of day5Val[4]) {
-                    let tSlot = Object.values(times);
+                for(let times of day5) { 
                     let timeSlot = document.createElement('BUTTON');
                     timeSlot.setAttribute('id', 'timeslot');
-                    let time = document.createTextNode(tSlot[0]);
+                    let time = document.createTextNode(times[5]);
                     timeSlot.appendChild(time);
                     section.appendChild(timeSlot);
                 }
@@ -545,17 +599,17 @@
                 timeButtons.forEach(addListen)
             }
             function day6Handler() {
+                console.log(day6);
                 let section = document.getElementById("Timeslots");
-                document.getElementById("date").innerHTML = "Date: " + day6Val[1];
+                document.getElementById("date").innerHTML = "Date: " + day6[0][2];
                 while(section.firstElementChild) {
                     let child = section.firstElementChild;
                     section.removeChild(child);
                 }
-                for(let times of day6Val[4]) {
-                    let tSlot = Object.values(times);
+                for(let times of day6) { 
                     let timeSlot = document.createElement('BUTTON');
                     timeSlot.setAttribute('id', 'timeslot');
-                    let time = document.createTextNode(tSlot[0]);
+                    let time = document.createTextNode(times[5]);
                     timeSlot.appendChild(time);
                     section.appendChild(timeSlot);
                 }
@@ -563,17 +617,17 @@
                 timeButtons.forEach(addListen)
             }
             function day7Handler() {
+                console.log(day7);
                 let section = document.getElementById("Timeslots");
-                document.getElementById("date").innerHTML = "Date: " + day7Val[1];
+                document.getElementById("date").innerHTML = "Date: " + day7[0][2];
                 while(section.firstElementChild) {
                     let child = section.firstElementChild;
                     section.removeChild(child);
                 }
-                for(let times of day7Val[4]) {
-                    let tSlot = Object.values(times);
+                for(let times of day7) { 
                     let timeSlot = document.createElement('BUTTON');
                     timeSlot.setAttribute('id', 'timeslot');
-                    let time = document.createTextNode(tSlot[0]);
+                    let time = document.createTextNode(times[5]);
                     timeSlot.appendChild(time);
                     section.appendChild(timeSlot);
                 }

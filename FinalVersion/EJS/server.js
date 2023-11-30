@@ -1,18 +1,23 @@
 var express = require('express');
 const mongoose = require('mongoose');
+mongoose.connect('mongodb+srv://username:PassWord@cluster0.0jxtibh.mongodb.net/');
+const db = mongoose.connection;
+db.once('open', () => {
+  console.log('connected to mongo');
+});
 const Song = require('./models/song');
 const DJ = require('./models/dj');
 const prevPlay = require('./models/prevPlaylist');
 const AAA = require('./models/aaa');
-
+var bodyParser = require('body-parser');
 var app = express();
 var path = require('path');
 
 
-
 //init view engine
 app.set('view engine', 'ejs');
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 //set dir path
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -48,16 +53,101 @@ app.get('/', function (req, res) {
     });
 });
 //------------------------------------------------------------------------------------- listner
+const referencSchema= new mongoose.Schema({ref:String, bool:String});
+const References = mongoose.model('refs', referencSchema);
 
+// main page
+app.get('/listener_main', async function(req, res) {
+  
+  let array = []
+  const reff = await References.find({"bool": "1"}, {ref:1, _id:0})
+  reff.forEach((element) => array = array.concat(Object.values(Object.values(element)[2]))) 
+  const first = reff[0]
+
+
+  const playlist = await DJ.find({"Playlists.artist": {$in:array}})
+  const songs = await Song.find()
+  const artists = await References.find()
+
+  // res.render('pages/listener_main', {music: empty});
+  res.render('pages/listener_main', {music: songs, reference:artists, playlist: playlist});
+});
+app.post('/listener_main', async function(req, res) {
+  
+  if(req.body.search){
+
+    const keyword = req.body.search;
+    const filter = {"artist":keyword};
+    const results = await Song.find(filter);
+    if(results.length == 0){
+      results.push({artist: 'NOT', title: "FOUND"});
+    }
+    // res.render('pages/listener_music', {data: epty});
+    res.render('pages/listener_music', {data: results});
+   
+  }
+  if(req.body.ref){
+    const updated = req.body;
+    const filter = {"ref":updated.ref};
+    
+    const inserted = await References.findOneAndUpdate(filter, updated);
+    const songs = await Song.find()
+    const artists = await References.find()
+
+    let array = []
+    const reff = await References.find({"bool": "1"}, {ref:1, _id:0})
+    reff.forEach((element) => array = array.concat(Object.values(Object.values(element)[2]))) 
+    
+
+    const playlist = await DJ.find({"Playlists.artist": {$in:array}})
+    
+    // res.render('pages/listener_main', {music: epty});
+    res.render('pages/listener_main', {music: songs, reference:artists, playlist: playlist});
+
+  }
+  else{
+    const updated = req.body;
+    
+  const filter = {"_id":updated._id};
+  let updatedUser = await Song.findOneAndUpdate(filter, updated);
+  const songs = await Song.find()
+  const artists = await References.find()
+
+  let array = []
+    const reff = await References.find({"bool": "1"}, {ref:1, _id:0})
+    reff.forEach((element) => array = array.concat(Object.values(Object.values(element)[2]))) 
+    
+
+    const playlist = await DJ.find({"Playlists.artist": {$in:array}})
+    
+    // res.render('pages/listener_main', {music: epty});
+    res.render('pages/listener_main', {music: songs, reference:artists, playlist: playlist});
+  }
+ 
+});
+
+
+
+
+
+app.get('/listener_profile', async function(req, res) {
+  const data = await AAA.find();
+
+  // res.render('pages/listener_profile', {user: empty});
+  res.render('pages/listener_profile', {user: data});
+ 
+});
+app.post('/listener_profile', async function(req, res) {
+  const updated = req.body;
+  const filter = {"_id":updated._id};
+  let updatedUser = await AAA.findOneAndUpdate(filter, updated);
+  // res.render('pages/listener_profile', {user: empty});
+  res.render('pages/listener_profile', {user: updatedUser});
+});
 //------------------------------------------------------------------------------------- DJ
 
 
-
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
-// handle requests for static resources
-
-let weekNumber = 1;
+let weekNumber = 47;
 let currentTimeslot = {
   Date: "",
   Time: "",
@@ -67,7 +157,9 @@ let currentTimeslot = {
 }
 //home tab
 app.get('/DJHomepage', async function(req, res) {
+  //console.log("here");
   const startWeek = await DJ.find({Week: weekNumber});
+  //console.log(startWeek);
   startWeek.sort(compareWeek);
   //console.log(startWeek);
   res.render('pages/DJHomepage',{ThisWeek: startWeek});
@@ -75,18 +167,14 @@ app.get('/DJHomepage', async function(req, res) {
 
 app.post('/DJHomepage', async function(req, res) {
   if(req.body.page == 0) {
-    console.log(req.body.WeekNum);
-    if(req.body.WeekNum == 1 && weekNumber < 2) {
-      weekNumber++;
-    }
-    else if(req.body.WeekNum == 0 && weekNumber > 0){
-      weekNumber--;
-    }
-    else {
-      console.log(weekNumber + " to high or low to move weeks currently");
-    }
+    let temp = weekNumber;
+    weekNumber =req.body.WeekNum;
     console.log(weekNumber);
     let nweek = await DJ.find({Week: weekNumber});
+    if(nweek.length == 0) {
+      weekNumber = temp;
+      nweek = await DJ.find({Week: weekNumber});
+    }
     nweek.sort(compareWeek);
     res.send({ThisWeek: nweek});
   }
@@ -103,20 +191,19 @@ app.post('/DJHomepage', async function(req, res) {
 //timeslot tab
 app.get('/DJTimeSlot', async function(req, res) {
   //console.log("1: "+currentTimeslot.Date);
- // console.log("2: "+ Object.values(currentTimeslot) + " ok");
-  let timeslotDay = await DJ.find({Date: currentTimeslot.Date});
+  //console.log("2: "+ Object.values(currentTimeslot) + " ok");
+  //console.log("here ----------------------------------------")
+  let timeslotDay = await DJ.find({Date: currentTimeslot.Date, Time: currentTimeslot.Time});
+  //console.log(timeslotDay);
   let timeslotDay1= timeslotDay[0];
+  //console.log(timeslotDay1);
   //console.log("3: "+ timeslotDay1);
   let timeslotDay2 = JSON.parse(JSON.stringify(timeslotDay1));
+  console.log(timeslotDay2);
   currentTimeslot.Playlist = [];
   currentTimeslot.Playlists = [];
-  for(let playlist of timeslotDay2.timeslots) {
-    if(currentTimeslot.Time === playlist.Time) {
-      for(let song of playlist.Playlists) {
-        currentTimeslot.Playlist.push(song);
-      }
-      break;
-    }
+  for(let song of timeslotDay2.Playlists) {
+    currentTimeslot.Playlist.push(song);
   }
   let playlists = await prevPlay.find();
   //console.log(playlists);
@@ -137,41 +224,6 @@ app.post('/DJTimeSlot', async function(req, res) {
     console.log(currentTimeslot.prevPlaylist);
     res.send({ThisPlay: grabPlay});
   }
-  else if(req.body.page == 0) {
-    console.log(req.body.index);
-    console.log(currentTimeslot.Playlist[req.body.index]);
-    currentTimeslot.Playlist[req.body.index].song = req.body.songName;
-    currentTimeslot.Playlist[req.body.index].description = req.body.description;
-    console.log(currentTimeslot.Playlist[req.body.index]);
-    let timeslotDay = await DJ.find({Date: currentTimeslot.Date});
-    let curDay = timeslotDay[0];
-    let newTimeSlots = [];
-    let i = 0;
-    console.log(curDay.timeslots);
-    for(let time of curDay.timeslots) {
-      i = 0;
-      if(time.Time == currentTimeslot.Time) {
-        let newTime = time;
-        for(let song of time.Playlists) {
-          if(req.body.index == i) {
-            song.song = req.body.songName;
-            song.description = req.body.description;
-            newTime.Playlists[i] = song;
-            break;
-          }
-          i+=1;
-        }
-        newTimeSlots.push(newTime);
-      }
-      else {
-        newTimeSlots.push(time);
-      }
-    }
-    curDay.timeslots = newTimeSlots;
-    let updatedTime = await DJ.updateOne({Date: curDay.Date}, curDay);
-    console.log(updatedTime);
-    res.send({ThisPlaylist: currentTimeslot.Playlist});
-  }
 });
 
 
@@ -184,20 +236,18 @@ app.get('/DJPlaylist', async function(req, res) {
 app.post('/DJPlaylist', async function(req, res) {
   if(req.body.page == 1) {
     currentTimeslot.Playlist = req.body.newPlaylist;
-    let timeslotDay = await DJ.find({Date: currentTimeslot.Date});
-    let curDay = timeslotDay[0];
-    let newTimeSlots = [];
-    for(let time of curDay.timeslots) {
-      if(time.Time == currentTimeslot.Time) {
-        time.Playlists = req.body.newPlaylist;
-        newTimeSlots.push(time);
-      }
-      else {
-        newTimeSlots.push(time);
-      }
-    }
-    curDay.timeslots = newTimeSlots;
-    let updatedTime = await DJ.updateOne({Date: curDay.Date}, curDay);
+    let timeslotDay = await DJ.find({Date: currentTimeslot.Date,Time: currentTimeslot.Time});
+    console.log(timeslotDay);
+    let curDay= timeslotDay[0];
+    console.log(curDay);
+    /*let newPlaylist = [];
+    for(let song of currentTimeslot.Playlist) {
+      console.log(song);
+      console.log(" -------------");
+      newPlaylist.push(song);
+    }*/
+    curDay.Playlists = currentTimeslot.Playlist;
+    let updatedTime = await DJ.updateOne({Date: curDay.Date,Time:curDay.Time}, curDay);
     console.log(updatedTime);
     const newprevplay = new prevPlay({
       Name: req.body.playName,
@@ -209,20 +259,12 @@ app.post('/DJPlaylist', async function(req, res) {
   }
   else if(req.body.page == 0) {
     currentTimeslot.Playlist = req.body.newPlaylist;
-    let timeslotDay = await DJ.find({Date: currentTimeslot.Date});
-    let curDay = timeslotDay[0];
-    let newTimeSlots = [];
-    for(let time of curDay.timeslots) {
-      if(time.Time == currentTimeslot.Time) {
-        time.Playlists = req.body.newPlaylist;
-        newTimeSlots.push(time);
-      }
-      else {
-        newTimeSlots.push(time);
-      }
-    }
-    curDay.timeslots = newTimeSlots;
-    let updatedTime = await DJ.updateOne({Date: curDay.Date}, curDay);
+    let timeslotDay = await DJ.find({Date: currentTimeslot.Date,Time: currentTimeslot.Time});
+    console.log(timeslotDay);
+    let curDay= timeslotDay[0];
+    console.log(curDay);
+    curDay.Playlists = currentTimeslot.Playlist;
+    let updatedTime = await DJ.updateOne({Date: curDay.Date,Time:curDay.Time}, curDay);
     console.log(updatedTime);
     res.send({ThisPlay: currentTimeslot.Playlist});
   }
