@@ -25,6 +25,114 @@ app.use(express.static(path.join(__dirname, 'public')));
 //               Add routes here              //
 ////////////////////////////////////////////////
 
+//------------------------------------------------------------------------------------- producer
+
+
+//Current Usable Routes
+//Songs should be able to be Read
+app.get('/getSongs', async (req, res) => {
+  Song.find()
+      .then((result) => {
+          res.send(result);
+      })
+      .catch((err) => {
+          console.log(err)
+      });
+});
+
+
+//DJ's should be able to be Read, Updated, and Deleted for their list of songs
+//Read
+app.get('/getDJs', async (req, res) => {
+  DJ.find()
+      .then((result) => {
+          res.send(result);
+      })
+      .catch((err) => {
+          console.log(err)
+      });
+});
+
+
+//Update
+app.post('/addSong', async (req, res) => {
+  try {
+     // console.log(req.body.title + "!!!")
+     // console.log(JSON.stringify(req.body, null, 2));
+    // Logic to add a new item to MongoDB
+    // Retrieve data from the request and save it to MongoDB
+    const newSong = new Song(
+      {title: req.body.title,
+      artist: req.body.artist,
+      duration: req.body.duration,
+      genre: req.body.genre,
+      flag: req.body.flag}
+    );
+    
+    const djName = req.body.djName;
+    const dj = await DJ.findOne({Djname:djName});
+    console.log(dj)
+    if (!dj) {
+      return res.status(404).json({ success: false, message: 'DJ not found' });
+  }
+
+  dj.Playlists.push(newSong)
+  await dj.save();
+
+    
+    res.json({ success: true, message: 'Song added successfully' });
+  } catch (error) {
+    console.error('Error adding song:', error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+});
+
+
+//Delete
+app.post('/deleteSong', async (req, res) => {
+  try {
+    const songId = req.body.songID;
+    const djName = req.body.djName;
+    const dj = await DJ.findOne({ Djname: djName });
+    
+    if (!dj) {
+      return res.status(404).json({ success: false, message: 'DJ not found' });
+    }
+    
+    // Assuming songs is an array of objects
+    const songIndex = dj.Playlists.findIndex(song => String(song._id) === songId);
+   // console.log("this is delete" + songId + djName + " " +songIndex)
+
+    if (songIndex === -1) {
+      return res.status(404).json({ success: false, message: 'Song not found' });
+    }
+
+    dj.Playlists.splice(songIndex, 1); // Remove the song at the found index
+    await dj.save(); // Save the updated DJ document
+
+    res.json({ success: true, message: 'Item deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting item:', error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+});
+
+
+
+//DJ's should be able to be Read, Updated, and Deleted for their list of songs
+//Read
+app.get('/getDJs', async (req, res) => {
+  DJ.find()
+      .then((result) => {
+          res.send(result);
+      })
+      .catch((err) => {
+          console.log(err)
+      });
+});
+
+
+
 app.get('/ProducerPage', async function(req,res){
     res.render('pages/group3_bok', {
       data: {

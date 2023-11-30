@@ -28,10 +28,10 @@
                 max-height: 10%;
                 min-width: 500px;
                 margin: 0 auto;
-                border-bottom: 5px solid #a9a9a9;
-                border-left: 5px solid #a9a9a9;
-                border-top: 5px solid #a9a9a9 ;
-                border-right: 5px solid #a9a9a9;
+                border-bottom: 5px solid black;
+                border-left: 5px solid black;
+                border-top: 5px solid black ;
+                border-right: 5px solid black;
                 background-color: #202122;
                 margin-top: 1%;
                 margin-bottom: 1%;
@@ -75,10 +75,10 @@
                 max-height: 2000px;
                 height: 1000px;
                 margin: 0 auto;
-                border-bottom: 10px solid #a9a9a9;
-                border-left: 10px solid #a9a9a9;
-                border-top: 10px solid #a9a9a9 ;
-                border-right: 10px solid #a9a9a9;
+                border-bottom: 10px solid black;
+                border-left: 10px solid black;
+                border-top: 10px solid black;
+                border-right: 10px solid black;
                 background-color: #202122;
                 position: relative;
             }
@@ -296,11 +296,11 @@
             <div class = "Producer">
                 <a href="/ProducerPage" >Producer</a> 
             </div>
-            <div class = "Listener">
-                <a href="/listener_main" >Listener</a>
-            </div>
             <div class = "Dj">
                 <a href="/DJHomepage">DJ</a>
+            </div>
+            <div class = "Listener">
+                <a href="/listener_main" >Listener</a>
             </div>
             <h1>DJ PlayList Edit</h1>
         </nav>
@@ -310,16 +310,16 @@
             <main class = "content">
                 <header class="boxHeadings">
                     <form class="AsHead">
-                        <h1>Assigned PlayList</h1>
-                        <label for="searchSongs" style="font-size: 30px;"> Search for songs:</label>
-                        <input type="text" id="searchPlaylistA" name="inputbox" value="">
-                        <input type="button" id="searchButton" style="width: 75px;"name="button" value="Search" onclick="searchSongA(this.form)">
+                        <h1 style="font-size: 40px;">Assigned PlayList</h1>
+                        <label for="searchSongs" style="font-size: 35px;"> Search for songs:</label>
+                        <input type="text" id="searchPlaylistA" style="padding: 4px;"name="inputbox" value="">
+                        <input type="button" id="searchButton" style="width: 100px;font-size: 20px;"name="button" value="Search" onclick="searchSongA(this.form)">
                     </form>
                     <form class="PrHead">
-                        <h1>Previous PlayList</h1>
-                        <label for="searchPlaylist" style="font-size: 30px;"> Search for songs:</label>
-                        <input type="text" id="searchPlaylistP" name="inputbox" value="">
-                        <input type="button" id="searchButton" style="width: 75px;"name="button" value="Search" onclick="searchSongP(this.form)">
+                        <h1 style="font-size: 40px;">Previous PlayList</h1>
+                        <label for="searchPlaylist" style="font-size: 35px;"> Search for songs:</label>
+                        <input type="text" id="searchPlaylistP" style="padding: 4px;"name="inputbox" value="">
+                        <input type="button" id="searchButton" style="width: 100px;font-size: 20px;"name="button" value="Search" onclick="searchSongP(this.form)">
                     </form>
                 </header>
                 <section class="box">
@@ -327,12 +327,12 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th style="width: 25%">Song Name</th>
-                                    <th>Description</th>
-                                    <th style="width: 10%">Delete Song</th>
+                                    <th style="width: 25%; font-size: 27px;">Song Name</th>
+                                    <th style="font-size: 27px;">Description</th>
+                                    <th style="width: 10%; font-size: 25px;">Delete Song</th>
                                 </tr>
                             </thead>
-                            <tbody id="assignTB">
+                            <tbody id="assignTB" style="font-size: 20px;">
                             </tbody>
                         </table>
                     </article>
@@ -340,12 +340,12 @@
                         <table>    
                             <thead>
                                 <tr>
-                                    <th style="width: 25%">PlayList Name</th>
-                                    <th>Description</th>
-                                    <th style="width: 10%">Add songs</th>
+                                    <th style="width: 25%; font-size: 25px;">PlayList Name</th>
+                                    <th style="font-size: 25px;">Description</th>
+                                    <th style="width: 10%;font-size: 25px;">Add Songs</th>
                                 </tr>
                             </thead>
-                            <tbody id="prevTB">
+                            <tbody id="prevTB" style="font-size: 20px;">
                             </tbody>
                         </table>
                     </article>
@@ -462,6 +462,7 @@
                     let add = document.createElement('BUTTON');
                     add.setAttribute('id', 'add');   
                     add.style.border = "none";
+                    add.style.fontSize = "20px";
                     add.innerHTML = "Add";
                     add.addEventListener("click",addRow);
                     td3.appendChild(add);
@@ -496,6 +497,7 @@
                     let deleteP = document.createElement('BUTTON');
                     deleteP.setAttribute('id', 'delete');   
                     deleteP.style.border = "none";
+                    deleteP.style.fontSize = "18px";
                     deleteP.innerHTML = "Delete";
                     deleteP.addEventListener("click",deleteRow);
                     td3.appendChild(deleteP);
