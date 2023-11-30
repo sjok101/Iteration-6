@@ -145,7 +145,7 @@
 		</audio>
 	</div>
 
-	<main class = "main_section">
+	<main class = "main_section" style="font-size:25px">
 
 		<div class="content">
 
@@ -190,46 +190,20 @@
 
 			
 
-		<!-- 	<div class="category-container">
-				<h2>Playlist 3</h2>
-				<div class="category-contents">
-					<% music.forEach ((d) => {%>
-						<div class="song" >
-							<img src="/images/Metro-Boomin.png">
-							<div class="category-content">
-								<p><b><%= d.title%></b></p>
-								<p>by <%= d.artist%></p>
-							</div>
-						</div>	
-					<%})%>	
-
-					
 
 
-				</div>
-			</div> -->
 			<div style="width: 70%; text-align: center;"> REFERENCE
-				<div class= "reference" style="display: flex;justify-content: space-around;" >
-					<p style="margin-top: auto; margin-bottom: auto; border: solid;width: 100px;text-align: center;">Joji</p>
 
-				</div>
-				<div class= "reference" style="display: flex;justify-content: space-around;" >
-					<p style="margin-top: auto; margin-bottom: auto; border: solid;width: 100px;text-align: center;">Ed Sheeran</p>
+				<% reference.forEach ((d) => {%>
+						
 
-				</div>
-				<div class= "reference" style="display: flex;justify-content: space-around;" >
-					<p style="margin-top: auto; margin-bottom: auto; border: solid;width: 100px;text-align: center;">Heroes & Villains</p>
+						<div class= "reference" style="display: flex;justify-content: space-around;" >
+							<p style="margin-top: auto; margin-bottom: auto; border: solid;width: 200px;text-align: center;"><%= d.ref%></p>
 
-				</div>
-				<div class= "reference" style="display: flex;justify-content: space-around;" >
-					<p style="margin-top: auto; margin-bottom: auto; border: solid;width: 100px;text-align: center;">Taylor Swift</p>
+						</div>
 
-
-
-				</div>
-
-
-					
+					<%})%>
+	
 			</div>		
 
 			<div class="suggestion"> <b style="text-align: center;">Suggestion</b>
