@@ -57,14 +57,16 @@ app.get('/getDJs', async (req, res) => {
 //Update
 app.post('/addSong', async (req, res) => {
   try {
-      console.log(req.body.title + "!!!")
-      console.log(JSON.stringify(req.body, null, 2));
+     // console.log(req.body.title + "!!!")
+     // console.log(JSON.stringify(req.body, null, 2));
     // Logic to add a new item to MongoDB
     // Retrieve data from the request and save it to MongoDB
     const newSong = new Song(
       {title: req.body.title,
       artist: req.body.artist,
-      duration: req.body.duration}
+      duration: req.body.duration,
+      genre: req.body.genre,
+      flag: req.body.flag}
     );
     
     const djName = req.body.djName;

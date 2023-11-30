@@ -159,6 +159,8 @@ function buildEmptyTableDJ(data, tableList, amountRow) {
                                 title: songData.title,
                                 artist: songData.artist,
                                 duration: songData.duration,
+                                genre: songData.genre,
+                                flag: songData.flag,
                                 djName: content,
                             };
                         
