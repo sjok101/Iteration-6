@@ -43,7 +43,7 @@ function mainBuild(){
 /////////////////////////////////////////////////////////////////////////////
 //                   Listener Approach (Futher used below)                 //
 /////////////////////////////////////////////////////////////////////////////
-alert("Make sure to select Oct 19 2023 as a date!")
+alert("Make sure to select Nov 29 2023 as a date!")
 const djList = document.querySelector(".dj-list")
 const djPlayList = document.querySelector(".dj-playlist")
 const musicSearch = document.querySelector(".music-search")
