@@ -384,18 +384,18 @@
                     list.removeChild(child);
                 }
                 for(let plays of prevPlaylists) {
-                    let prevPlaylist = Object.values(plays); 
+                    //let prevPlaylist = Object.values(plays); 
                     let play = document.createElement('li');
                     let Name = document.createElement('p');
                     Name.setAttribute('id', 'Name');  
                     Name.style.display = "inline-block";          
-                    Name.innerHTML = prevPlaylist[1];                
+                    Name.innerHTML = plays.Name;                
                     play.appendChild(Name);
                     list.appendChild(play);
                     let desc = document.createElement('p');
                     desc.setAttribute('id', 'desc');   
                     desc.style.display = "inline-block";
-                    desc.innerHTML = prevPlaylist[2];         
+                    desc.innerHTML = plays.description;         
                     play.appendChild(desc);
                     list.appendChild(play);
                     let optionB = document.createElement('BUTTON');
@@ -403,7 +403,7 @@
                     optionB.style.fontSize = "18px";             
                     let buText = document.createTextNode("Add Songs");       
                     optionB.appendChild(buText);
-                    optionB.addEventListener('click',() => pageNext2(prevPlaylist[1]));
+                    optionB.addEventListener('click',() => pageNext2(plays.Name));
                     play.appendChild(optionB);
                     list.appendChild(play);
                 }          
@@ -417,7 +417,7 @@
                 }
                 let i = 0;
                 for(let song of playlist) {
-                    let songS = Object.values(song);
+                    //let songS = Object.values(song);
                     let row = document.createElement("tr");
                     i++;
                     let id = '';
@@ -426,8 +426,8 @@
                     row.setAttribute('class','row')
                     let td1 = document.createElement("td");
                     let td2 = document.createElement("td");;
-                    td1.innerHTML = songS[1];
-                    td2.innerHTML = "<p>Artist: " + songS[2] + "</p><p>Genre: " + songS[4] + "</p><p>Duration: " + songS[3] +"</p>";
+                    td1.innerHTML = song.title;
+                    td2.innerHTML = "<p>Artist: " + song.artist + "</p><p>Genre: " + song.genre + "</p><p>Duration: " + song.duration +"</p>";
                     row.appendChild(td1);
                     row.appendChild(td2);
                     tb.appendChild(row);             
@@ -482,9 +482,9 @@
                     }
                     //let input = inputValue.toLowerCase();
                     for(let plays of prevPlaylists) {
-                        let prevPlaylist = Object.values(plays);
-                        console.log(prevPlaylist[1] + " = " + inputValue);
-                        let playN = prevPlaylist[1].toLowerCase();
+                        //let prevPlaylist = Object.values(plays);
+                        //console.log(play.Name + " = " + inputValue);
+                        let playN = plays.Name.toLowerCase();
                         let input = inputValue.toLowerCase();
                         if(playN.includes(input)==true) {
     
@@ -492,20 +492,20 @@
                             let Name = document.createElement('p');
                             Name.setAttribute('id', 'Name');  
                             Name.style.display = "inline-block";          
-                            Name.innerHTML = prevPlaylist[1];                
+                            Name.innerHTML = plays.Name;                
                             play.appendChild(Name);
                             list.appendChild(play);
                             let desc = document.createElement('p');
                             desc.setAttribute('id', 'desc');   
                             desc.style.display = "inline-block";
-                            desc.innerHTML = prevPlaylist[2];         
+                            desc.innerHTML = plays.description;         
                             play.appendChild(desc);
                             list.appendChild(play);
                             let optionB = document.createElement('BUTTON');
                             optionB.setAttribute('id', 'option');              
                             let buText = document.createTextNode("Add Songs");       
                             optionB.appendChild(buText);
-                            optionB.addEventListener('click',() => pageNext2(prevPlaylist[1]));
+                            optionB.addEventListener('click',() => pageNext2(plays.Name));
                             play.appendChild(optionB);
                             list.appendChild(play); 
                             check = true;
@@ -533,9 +533,9 @@
                     }
                     let i = 0;
                     for(let song of playlist) {
-                        let songSeached = Object.values(song);
-                        console.log(inputValue + " = " + songSeached[1]);
-                        let songN = songSeached[1].toLowerCase();
+                        //let songSeached = Object.values(song);
+                        console.log(inputValue + " = " + song.title);
+                        let songN = song.title.toLowerCase();
                         let input = inputValue.toLowerCase();
                         if(songN.includes(input) == true) {
                             let row = document.createElement("tr");
@@ -546,8 +546,8 @@
                             row.setAttribute('class','row');
                             let td1 = document.createElement("td");
                             let td2 = document.createElement("td");
-                            td1.innerHTML = songSeached[1];
-                            td2.innerHTML = "<p>Artist: " + songSeached[2] + "</p><p>genre: " + songSeached[4] + "</p><p>Duration: " + songSeached[3] +"</p>";
+                            td1.innerHTML = song.title;
+                            td2.innerHTML = "<p>Artist: " + song.artist + "</p><p>Genre: " + song.genre + "</p><p>Duration: " + song.duration +"</p>";
                             row.appendChild(td1);
                             row.appendChild(td2);
                             tb.appendChild(row);

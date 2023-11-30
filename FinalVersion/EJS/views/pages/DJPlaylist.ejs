@@ -447,7 +447,7 @@
                 let i = 0;
                 console.log(prevPlaylist);
                 for(let song of prevPlaylist) {
-                    let songS = Object.values(song);
+                    //let songS = Object.values(song);
                     let row = document.createElement("tr");
                     i++;
                     let id = '';
@@ -457,8 +457,8 @@
                     let td1 = document.createElement("td");
                     let td2 = document.createElement("td");
                     let td3 = document.createElement("td");
-                    td1.innerHTML = songS[1];
-                    td2.innerHTML = "<p>Artist: " + songS[2] + "</p><p>genre: " + songS[4] + "</p><p>Duration: " + songS[3] +"</p>";
+                    td1.innerHTML = song.title;
+                    td2.innerHTML = "<p>Artist: " + song.artist + "</p><p>Genre: " + song.genre + "</p><p>Duration: " + song.duration +"</p>";;
                     let add = document.createElement('BUTTON');
                     add.setAttribute('id', 'add');   
                     add.style.border = "none";
@@ -492,8 +492,8 @@
                     let td1 = document.createElement("td");
                     let td2 = document.createElement("td");
                     let td3 = document.createElement("td");
-                    td1.innerHTML = songS[1];
-                    td2.innerHTML = "<p>Artist: " + songS[2] + "</p><p>genre: " + songS[4] + "</p><p>Duration: " + songS[3] +"</p>";
+                    td1.innerHTML = song.title;
+                    td2.innerHTML = "<p>Artist: " + song.artist + "</p><p>Genre: " + song.genre + "</p><p>Duration: " + song.duration +"</p>";
                     let deleteP = document.createElement('BUTTON');
                     deleteP.setAttribute('id', 'delete');   
                     deleteP.style.border = "none";
@@ -539,36 +539,25 @@
                         tb.removeChild(child);
                     }
                     let i = 0;
-                    for(let song of asPlaylist) {
-                        let songSeached = Object.values(song);
-                        console.log(inputValue + " = " + songSeached[0]);
-                        if(songSeached[0].includes(inputValue) == true) {
-                            console.log("True");
+                    for(let song of asPlaylist){
+                        //let songSeached = Object.values(song);
+                        console.log(inputValue + " = " + song.title);
+                        let songN = song.title.toLowerCase();
+                        let input = inputValue.toLowerCase();
+                        if(songN.includes(input) == true) {
                             let row = document.createElement("tr");
                             i++;
                             let id = '';
                             id +=i;
-                            console.log("1");
                             row.setAttribute('id', id);
                             row.setAttribute('class','row');
-                            console.log("2");
                             let td1 = document.createElement("td");
                             let td2 = document.createElement("td");
-                            let td3 = document.createElement("td");
-                            console.log("3");
-                            td1.innerHTML = songSeached[0];
-                            td2.innerHTML = songSeached[1];
-                            let edit = document.createElement('BUTTON');
-                            edit.setAttribute('id', 'edit');   
-                            edit.style.border = "none";
-                            edit.innerHTML = "Edit";
-                            edit.addEventListener("click",deleteRow);
-                            td3.appendChild(edit);
+                            td1.innerHTML = song.title;
+                            td2.innerHTML = "<p>Artist: " + song.artist + "</p><p>Genre: " + song.genre + "</p><p>Duration: " + song.duration +"</p>";
                             row.appendChild(td1);
                             row.appendChild(td2);
-                            row.appendChild(td3);
                             tb.appendChild(row);
-                            console.log("4");
                         }             
                     }
                 }
@@ -587,35 +576,24 @@
                     }
                     let i = 0;
                     for(let song of prevPlaylist) {
-                        let songSeached = Object.values(song);
-                        console.log(inputValue + " = " + songSeached[0]);
-                        if(songSeached[0].includes(inputValue) == true) {
-                            console.log("True");
+                        //let songSeached = Object.values(song);
+                        console.log(inputValue + " = " + song.title);
+                        let songN = song.title.toLowerCase();
+                        let input = inputValue.toLowerCase();
+                        if(songN.includes(input) == true) {
                             let row = document.createElement("tr");
                             i++;
                             let id = '';
                             id +=i;
-                            console.log("1");
                             row.setAttribute('id', id);
                             row.setAttribute('class','row');
-                            console.log("2");
                             let td1 = document.createElement("td");
                             let td2 = document.createElement("td");
-                            let td3 = document.createElement("td");
-                            console.log("3");
-                            td1.innerHTML = songSeached[0];
-                            td2.innerHTML = songSeached[1];
-                            let edit = document.createElement('BUTTON');
-                            edit.setAttribute('id', 'edit');   
-                            edit.style.border = "none";
-                            edit.innerHTML = "Edit";
-                            edit.addEventListener("click",addRow);
-                            td3.appendChild(edit);
+                            td1.innerHTML = song.title;
+                            td2.innerHTML = "<p>Artist: " + song.artist + "</p><p>Genre: " + song.genre + "</p><p>Duration: " + song.duration +"</p>";
                             row.appendChild(td1);
                             row.appendChild(td2);
-                            row.appendChild(td3);
                             tb.appendChild(row);
-                            console.log("4");
                         }             
                     }
                 }
